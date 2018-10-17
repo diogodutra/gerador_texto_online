@@ -5,6 +5,7 @@ from .planet_tracker import PlanetTracker
 __all__ = ["app"]
 
 tracker = PlanetTracker()
+
 # the following coordinates are for the Greenwich Observatory in the UK
 tracker.lon = -0.0005
 tracker.lat = 51.4769
@@ -38,6 +39,8 @@ async def hello(request):
     return web.FileResponse("./index.html")
 
 
+# async def app_factory():
 app = web.Application()
 app.add_routes(routes)
 app.router.add_static("/", "./")
+# return app
