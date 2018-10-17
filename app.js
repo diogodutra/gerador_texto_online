@@ -141,7 +141,12 @@ var App = function(){
             var content = [d.name, d.az, d.alt]
             var planetRow = document.getElementById(d.name)
             planetRow.childNodes.forEach((node, idx)=>{
-                node.textContent = content[idx]
+                var contentFloat = parseFloat(content[idx])
+                if (isNaN(contentFloat)){
+                    node.textContent = content[idx]
+                } else {
+                    node.textContent = contentFloat.toFixed(2)
+                }
             })
         })
     }
@@ -149,7 +154,9 @@ var App = function(){
     this.updateGeoLocationDisplay = function(geoLocation){
         Object.keys(geoLocation).forEach((key)=>{
             var node = document.getElementById(key)
-            node.childNodes[1].textContent = geoLocation[key]
+            node.childNodes[1].textContent = parseFloat(
+                geoLocation[key]
+            ).toFixed(2)
         })
     }
 
