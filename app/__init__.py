@@ -7,8 +7,8 @@ __all__ = ["app"]
 tracker = PlanetTracker()
 
 # the following coordinates are for the Greenwich Observatory in the UK
-tracker.lon = -0.0005
-tracker.lat = 51.4769
+tracker.lon = "-0.0005"
+tracker.lat = "51.4769"
 tracker.elevation = 0.0
 
 routes = web.RouteTableDef()
@@ -18,7 +18,7 @@ routes = web.RouteTableDef()
 async def geo_location(request):
     print("get_location")
     data = await request.post()
-
+    print(data)
     parsed_data = {
         "lon": str(data["lon"]),
         "lat": str(data["lat"]),
@@ -42,11 +42,11 @@ async def get_planet_ephmeris(request):
 
 @routes.get('/')
 async def hello(request):
-    return web.FileResponse("./index.html")
+    return web.FileResponse("./client/index.html")
 
 
 # async def app_factory():
 app = web.Application()
 app.add_routes(routes)
-app.router.add_static("/", "./")
+app.router.add_static("/", "./client")
 # return app

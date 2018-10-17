@@ -79,6 +79,7 @@ var App = function(){
             return postUrl
         }
         return this.getGeoLocation().then((position)=>{
+            console.log(position)
             this.updateGeoLocationDisplay({
                 lon: position.coords.longitude,
                 lat: position.coords.latitude,
