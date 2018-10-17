@@ -18,12 +18,18 @@ routes = web.RouteTableDef()
 async def geo_location(request):
     print("get_location")
     data = await request.post()
-    # print(data)
-    tracker.lon = str(data["lon"])
-    tracker.lat = str(data["lat"])
-    tracker.elevation = float(data["elevation"])
+
+    parsed_data = {
+        "lon": str(data["lon"]),
+        "lat": str(data["lat"]),
+        "elevation": float(data["elevation"])
+    }
+
+    tracker.lon = parsed_data["lon"]
+    tracker.lat = parsed_data["lat"]
+    tracker.elevation = parsed_data["elevation"]
     # print(tracker.lon, tracker.lat, tracker.elevation)
-    return web.json_response({"success": True})
+    return web.json_response(parsed_data)
 
 
 @routes.get("/planets/{name}")

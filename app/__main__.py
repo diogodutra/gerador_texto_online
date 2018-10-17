@@ -11,5 +11,6 @@ ssl_context.load_cert_chain('domain_srv.crt', 'domain_srv.key')
 # ssl_context.load_default_certs()
 web.run_app(
     app,
-    ssl_context=ssl_context
+    host="localhost",
+    port=8000
 )

@@ -1,5 +1,5 @@
 var App = function(){
-    
+
     this.planetNames = [
         "mercury",
         "venus",
@@ -78,13 +78,18 @@ var App = function(){
             ]
             return postUrl
         }
-        return this.getGeoLocation().then(
-            (position)=>{
+        return this.getGeoLocation().then((position)=>{
+            this.updateGeoLocationDisplay({
+                lon: position.coords.longitude,
+                lat: position.coords.latitude,
+                elevation: position.coords.altitude,
+            })
+            return position
+        }).then((position)=>{
                 console.log(`Got geoLocation`)
                 var postUrl = processCoordinates(position)
                 return this.post("/geo_location", postUrl.join("&"))
-            }
-        )
+            })
     }
 
     this.getPlanetEphemeris = function(planetName){
@@ -138,6 +143,13 @@ var App = function(){
             planetRow.childNodes.forEach((node, idx)=>{
                 node.textContent = content[idx]
             })
+        })
+    }
+
+    this.updateGeoLocationDisplay = function(geoLocation){
+        Object.keys(geoLocation).forEach((key)=>{
+            var node = document.getElementById(key)
+            node.childNodes[1].textContent = geoLocation[key]
         })
     }
 
