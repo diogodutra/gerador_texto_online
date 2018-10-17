@@ -15,18 +15,20 @@ routes = web.RouteTableDef()
 
 @routes.post("/geo_location")
 async def geo_location(request):
+    print("get_location")
     data = await request.post()
-    print(data)
+    # print(data)
     tracker.lon = str(data["lon"])
     tracker.lat = str(data["lat"])
     tracker.elevation = float(data["elevation"])
-    print(tracker.lon, tracker.lat, tracker.elevation)
+    # print(tracker.lon, tracker.lat, tracker.elevation)
     return web.json_response({"success": True})
 
 
 @routes.get("/planets/{name}")
 async def get_planet_ephmeris(request):
     planet_name = request.match_info['name']
+    print(f"get_planet_ephmeris: {planet_name}")
     planet_data = tracker.calc_planet(planet_name)
     return web.json_response(planet_data)
 
