@@ -8,6 +8,8 @@ aiohttp = "*"
 pyephem = "*"
 gunicorn = "*"
 flask = "*"
+uvloop = "*"
+uvicorn = "*"
 
 [dev-packages]
 

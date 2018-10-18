@@ -1,6 +1,9 @@
 import argparse
 import asyncio
 
+import uvloop
+asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+
 from aiohttp import web
 
 from . import app_async, app_sync
@@ -24,26 +27,28 @@ def main():
         print("Starting Flask app")
         app_sync.run(
             host=parsed.host,
-            port=parsed.port
+            port=parsed.port,
+            threaded=True
         )
     else:
         print("Starting aiohttp app")
 
         async def start_async_app():
             runner = web.AppRunner(app_async)
-            print("setting up...", end="\r")
             await runner.setup()
             site = web.TCPSite(
                 runner, parsed.host, parsed.port)
-            try:
-                print("starting up...", end="\r")
-                await site.start()
-                print(f"Serving up app on {parsed.host}:{parsed.port}")
-            except KeyboardInterrupt:
-                await site.cleanup()
+            await site.start()
+            print(f"Serving up app on {parsed.host}:{parsed.port}")
+            return runner, site
 
         loop = asyncio.get_event_loop()
-        loop.run_until_complete(start_async_app())
-        loop.run_forever()
+        runner, site = loop.run_until_complete(start_async_app())
+        try:
+            loop.run_forever()
+        except KeyboardInterrupt:
+            loop.run_until_complete(runner.cleanup())
+
+
 
 main()
