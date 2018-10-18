@@ -1,9 +1,6 @@
 import argparse
 import asyncio
 
-import uvloop
-asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
-
 from aiohttp import web
 
 from . import app_async, app_sync
