@@ -168,9 +168,21 @@ var App = function(){
         }
     }
 
+    this.testPerformance = function(n){
+        var t0 = performance.now()
+        var promises = []
+        for (var i=0; i<n; i++){
+            promises.push(this.getPlanetEphemeris("mars"))
+        }
+        Promise.all(promises).then(()=>{
+            var delta = (performance.now() - t0)/1000
+            console.log(`Took ${delta.toFixed(4)} seconds to do ${n} requests`)
+        })
+    }
 }
 
+var app
 document.addEventListener("DOMContentLoaded", (evt)=>{
-    var app = new App()
+    app = new App()
     app.init()
 })

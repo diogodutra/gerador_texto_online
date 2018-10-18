@@ -1,16 +1,49 @@
-import ssl
+import argparse
 import asyncio
 
 from aiohttp import web
 
-from . import app
+from . import app_async, app_sync
 
 
-ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
-ssl_context.load_cert_chain('domain_srv.crt', 'domain_srv.key')
-# ssl_context.load_default_certs()
-web.run_app(
-    app,
-    host="localhost",
-    port=8000
-)
+def create_parser():
+    parser = argparse.ArgumentParser(
+        description=("Launch asynchronous (aiohttp) or "
+                     "synchronous (flask) planettracker server"))
+
+    parser.add_argument("-s", "--sync", action="store_true")
+    parser.add_argument("--host", default="localhost", type=str)
+    parser.add_argument("--port", default=8000, type=int)
+
+    return parser
+
+
+def main():
+    parsed = create_parser().parse_args()
+    if parsed.sync:
+        print("Starting Flask app")
+        app_sync.run(
+            host=parsed.host,
+            port=parsed.port
+        )
+    else:
+        print("Starting aiohttp app")
+
+        async def start_async_app():
+            runner = web.AppRunner(app_async)
+            print("setting up...", end="\r")
+            await runner.setup()
+            site = web.TCPSite(
+                runner, parsed.host, parsed.port)
+            try:
+                print("starting up...", end="\r")
+                await site.start()
+                print(f"Serving up app on {parsed.host}:{parsed.port}")
+            except KeyboardInterrupt:
+                await site.cleanup()
+
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(start_async_app())
+        loop.run_forever()
+
+main()
