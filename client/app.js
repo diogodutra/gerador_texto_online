@@ -71,26 +71,34 @@ var App = function(){
 
     this.postGeoLocation = function(){
         var processCoordinates = (position)=>{
+            var coordNames = ["longitude", "latitude", "altitude"]
+            var coords = coordNames.reduce((obj, name)=>{
+                var coord = position.coords[name]
+                if (coord === null || isNaN(coord)){
+                    coord = 0.0
+                }
+                obj[name] = coord
+                return obj
+            }, {})
             var postUrl = [
-                `lon=${position.coords.longitude}`,
-                `lat=${position.coords.latitude}`,
-                `elevation=${position.coords.altitude}`
+                `lon=${coords.longitude}`,
+                `lat=${coords.latitude}`,
+                `elevation=${coords.altitude}`
             ]
-            return postUrl
+            return [postUrl, coords]
         }
         return this.getGeoLocation().then((position)=>{
-            console.log(position)
+            var [postUrl, coords] = processCoordinates(position)
             this.updateGeoLocationDisplay({
-                lon: position.coords.longitude,
-                lat: position.coords.latitude,
-                elevation: position.coords.altitude,
+                lon: coords.longitude,
+                lat: coords.latitude,
+                elevation: coords.altitude
             })
-            return position
-        }).then((position)=>{
-                console.log(`Got geoLocation`)
-                var postUrl = processCoordinates(position)
-                return this.post("/geo_location", postUrl.join("&"))
-            })
+            return [postUrl, coords]
+        }).then((processedCoordinates)=>{
+            var [postUrl, coords] = processedCoordinates
+            return this.post("/geo_location", postUrl.join("&"))
+        })
     }
 
     this.getPlanetEphemeris = function(planetName){
