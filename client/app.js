@@ -28,7 +28,7 @@ var App = function(){
             var coords = this.processCoordinates(position)
             this.geoLocation = coords
             this.initGeoLocationDisplay()
-            this.updateGeoLocationDisplay(coords)
+            this.updateGeoLocationDisplay()
             return this.getPlanetEphemerides()
         }).then((planetData) => {
             this.createPlanetDisplay()
@@ -179,11 +179,11 @@ var App = function(){
         appNode.appendChild(resetLocationButton)
     }
 
-    this.updateGeoLocationDisplay = function(geoLocation){
-        Object.keys(geoLocation).forEach((id)=>{
+    this.updateGeoLocationDisplay = function(){
+        Object.keys(this.geoLocation).forEach((id)=>{
             var node = document.getElementById(id)
             node.childNodes[1].value = parseFloat(
-                geoLocation[id]
+                this.geoLocation[id]
             ).toFixed(2)
         })
     }
@@ -224,6 +224,7 @@ var App = function(){
             console.log("Geo location reset clicked")
             this.getGeoLocation().then((coords) => {
                 this.geoLocation = this.processCoordinates(coords)
+                this.updateGeoLocationDisplay()
             })
         }
     }
