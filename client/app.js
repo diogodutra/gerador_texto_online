@@ -21,23 +21,21 @@ var App = function(){
     this.planetDisplayCreated = false
     this.updateInterval = 2000 // update very second and a half
     this.updateTimer = null
+    this.geoLocation = null
 
     this.init = function(){
-        this.updateTimer = this.getPostGeoLocation().then((resp)=>{
+
+        this.getGeoLocation().then((position) => {
+            var coords = this.processCoordinates(position)
+            this.geoLocation = coords
             this.initGeoLocationDisplay()
-            return resp
-        }).then((resp) => {
+            this.updateGeoLocationDisplay(coords)
             return this.getPlanetEphemerides()
-        }).then((planetData)=>{
+        }).then((planetData) => {
             this.createPlanetDisplay()
-            return planetData
-        }).then((planetData)=>{
             this.updatePlanetDisplay(planetData)
         }).then(() => {
-            return setInterval(
-                this.update.bind(this),
-                this.updateInterval
-            )
+            return this.initUpdateTimer()
         })
     }
 
@@ -66,8 +64,12 @@ var App = function(){
         })
     }
 
-    this.get = function(url){
+    this.get = function(url, data){
         var request = new XMLHttpRequest()
+        if (data !== undefined){
+            url += `?${data}`
+        }
+        // console.log(`get: ${url}`)
         request.open("GET", url, true)
         return new Promise((resolve, reject)=>{
             request.send()
@@ -81,21 +83,27 @@ var App = function(){
     }
 
     this.processCoordinates = function (position) {
-        var coordNames = ["longitude", "latitude", "altitude"]
-        var coords = coordNames.reduce((obj, name)=>{
+        var coordMap = {
+            'longitude': 'lon',
+            'latitude': 'lat',
+            'altitude': 'elevation'
+        }
+        var coords = Object.keys(coordMap).reduce((obj, name)=>{
             var coord = position.coords[name]
             if (coord === null || isNaN(coord)){
                 coord = 0.0
             }
-            obj[name] = coord
+            obj[coordMap[name]] = coord
             return obj
         }, {})
-        var postUrl = [
-            `lon=${coords.longitude}`,
-            `lat=${coords.latitude}`,
-            `elevation=${coords.altitude}`
-        ]
-        return [postUrl, coords]
+        return coords
+    }
+
+    this.coordDataUrl = function (coords) {
+        postUrl = Object.keys(coords).map((c) => {
+            return `${c}=${coords[c]}`
+        })
+        return postUrl
     }
 
     this.getGeoLocation = function(){
@@ -104,26 +112,9 @@ var App = function(){
         })
     }
 
-    this.postGeoLocation = function (postUrlArr) {
-        return this.post("/geo_location", postUrlArr.join("&"))
-    }
-
-    this.getPostGeoLocation = function(){
-        return this.getGeoLocation().then((position) => {
-            var [postUrl, coords] = this.processCoordinates(position)
-            this.updateGeoLocationDisplay({
-                lon: coords.longitude,
-                lat: coords.latitude,
-                elevation: coords.altitude
-            })
-            return [postUrl, coords]
-        }).then((processedCoordinates)=>{
-            return this.postGeoLocation(processedCoordinates[0])
-        })
-    }
-
     this.getPlanetEphemeris = function(planetName){
-        return this.get(`/planets/${planetName}`).then((req)=>{
+        var postUrlArr = this.coordDataUrl(this.geoLocation)
+        return this.get(`/planets/${planetName}`, postUrlArr.join("&")).then((req)=>{
             return JSON.parse(req.response)
         })
     }
@@ -158,14 +149,8 @@ var App = function(){
             table.appendChild(planetRow)
         })
         div.appendChild(table)
-        // var refreshBtn = document.createElement("button")
-        // refreshBtn.setAttribute("id", "refresh")
-        // refreshBtn.onclick = this.onRefreshButtonClick()
-        // refreshBtn.textContent = "Refresh"
-        // div.appendChild(refreshBtn)
         this.planetDisplayCreated = true
     }
-
 
     this.updatePlanetDisplay = function(planetData){
         planetData.forEach((d)=>{
@@ -227,28 +212,11 @@ var App = function(){
             this.keyUpTimer = setTimeout(() => {
                 var displayedGeoLocation = this.getDisplayedGeoLocation()
                 if (displayedGeoLocation.valid) {
+                    delete displayedGeoLocation.valid
+                    this.geoLocation = displayedGeoLocation
                     console.log("Using user supplied geo location")
-                    var postUrl = [
-                        `lon=${displayedGeoLocation.lon}`,
-                        `lat=${displayedGeoLocation.lat}`,
-                        `elevation=${displayedGeoLocation.elevation}`
-                    ]
-                    clearInterval(this.updateTimer)
-                    this.postGeoLocation(postUrl)
-                        .then(this.update)
-                        .then(() => {
-                            this.initUpdateTimer()
-                            console.log("Successfully changed geo location")
-                         })
                 }
             }, this.keyUpInterval)
-        }
-    }
-
-    this.onRefreshButtonClick = function () {
-        return (evt) => {
-            console.log("Refresh button clicked!")
-            this.update()
         }
     }
 
@@ -256,9 +224,9 @@ var App = function(){
         return (evt) => {
             console.log("Geo location reset clicked")
             clearInterval(this.updateTimer)
-            this.getPostGeoLocation().then(this.update).then(() => {
-                this.initUpdateTimer()
-                console.log("Successfully reset geo location")
+            this.getGeoLocation().then((coords) => {
+                this.geoLocation = this.processCoordinates(coords)
+                return this.update()
             })
         }
     }
