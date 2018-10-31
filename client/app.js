@@ -24,7 +24,6 @@ var App = function(){
     this.geoLocation = null
 
     this.init = function(){
-
         this.getGeoLocation().then((position) => {
             var coords = this.processCoordinates(position)
             this.geoLocation = coords
@@ -47,22 +46,22 @@ var App = function(){
         }
     }
 
-    this.post = function(url, data){
-        var request = new XMLHttpRequest()
-        request.open("POST", url, true)
-        request.setRequestHeader(
-            "Content-Type", "application/x-www-form-urlencoded"
-        )
-        return new Promise((resolve, reject)=>{
-            request.send(data)
-            request.onreadystatechange = function(){
-                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                    resolve(this)
-                }
-            }
-            request.onerror = reject
-        })
-    }
+    // this.post = function(url, data){
+    //     var request = new XMLHttpRequest()
+    //     request.open("POST", url, true)
+    //     request.setRequestHeader(
+    //         "Content-Type", "application/x-www-form-urlencoded"
+    //     )
+    //     return new Promise((resolve, reject)=>{
+    //         request.send(data)
+    //         request.onreadystatechange = function(){
+    //             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+    //                 resolve(this)
+    //             }
+    //         }
+    //         request.onerror = reject
+    //     })
+    // }
 
     this.get = function(url, data){
         var request = new XMLHttpRequest()
@@ -223,10 +222,8 @@ var App = function(){
     this.onResetLocationClick = function () {
         return (evt) => {
             console.log("Geo location reset clicked")
-            clearInterval(this.updateTimer)
             this.getGeoLocation().then((coords) => {
                 this.geoLocation = this.processCoordinates(coords)
-                return this.update()
             })
         }
     }

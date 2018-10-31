@@ -29,6 +29,7 @@ async def get_planet_ephmeris(request):
     tracker.lat = geo_location_data["lat"]
     tracker.elevation = geo_location_data["elevation"]
     planet_data = tracker.calc_planet(planet_name)
+    planet_data["geo_location"] = geo_location_data
     return web.json_response(planet_data)
 
 
