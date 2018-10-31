@@ -10,16 +10,34 @@ var App = function(){
         "neptune"
     ]
 
+    this.geoLocationIds = [
+        "lon",
+        "lat",
+        "elevation"
+    ]
+
+    this.keyUpInterval = 500
+    this.keyUpTimer = null
     this.planetDisplayCreated = false
+    this.updateInterval = 2000 // update very second and a half
+    this.updateTimer = null
 
     this.init = function(){
-        this.postGeoLocation().then((resp)=>{
+        this.updateTimer = this.getPostGeoLocation().then((resp)=>{
+            this.initGeoLocationDisplay()
+            return resp
+        }).then((resp) => {
             return this.getPlanetEphemerides()
         }).then((planetData)=>{
             this.createPlanetDisplay()
             return planetData
         }).then((planetData)=>{
             this.updatePlanetDisplay(planetData)
+        }).then(() => {
+            return setInterval(
+                this.update.bind(this),
+                this.updateInterval
+            )
         })
     }
 
@@ -29,12 +47,6 @@ var App = function(){
                 this.updatePlanetDisplay(planetData)
             })
         }
-    }
-
-    this.getGeoLocation = function(){
-        return new Promise((resolve, reject)=>{
-            navigator.geolocation.getCurrentPosition(resolve)
-        })
     }
 
     this.post = function(url, data){
@@ -68,27 +80,37 @@ var App = function(){
         })
     }
 
+    this.processCoordinates = function (position) {
+        var coordNames = ["longitude", "latitude", "altitude"]
+        var coords = coordNames.reduce((obj, name)=>{
+            var coord = position.coords[name]
+            if (coord === null || isNaN(coord)){
+                coord = 0.0
+            }
+            obj[name] = coord
+            return obj
+        }, {})
+        var postUrl = [
+            `lon=${coords.longitude}`,
+            `lat=${coords.latitude}`,
+            `elevation=${coords.altitude}`
+        ]
+        return [postUrl, coords]
+    }
 
-    this.postGeoLocation = function(){
-        var processCoordinates = (position)=>{
-            var coordNames = ["longitude", "latitude", "altitude"]
-            var coords = coordNames.reduce((obj, name)=>{
-                var coord = position.coords[name]
-                if (coord === null || isNaN(coord)){
-                    coord = 0.0
-                }
-                obj[name] = coord
-                return obj
-            }, {})
-            var postUrl = [
-                `lon=${coords.longitude}`,
-                `lat=${coords.latitude}`,
-                `elevation=${coords.altitude}`
-            ]
-            return [postUrl, coords]
-        }
-        return this.getGeoLocation().then((position)=>{
-            var [postUrl, coords] = processCoordinates(position)
+    this.getGeoLocation = function(){
+        return new Promise((resolve, reject)=>{
+            navigator.geolocation.getCurrentPosition(resolve)
+        })
+    }
+
+    this.postGeoLocation = function (postUrlArr) {
+        return this.post("/geo_location", postUrlArr.join("&"))
+    }
+
+    this.getPostGeoLocation = function(){
+        return this.getGeoLocation().then((position) => {
+            var [postUrl, coords] = this.processCoordinates(position)
             this.updateGeoLocationDisplay({
                 lon: coords.longitude,
                 lat: coords.latitude,
@@ -96,8 +118,7 @@ var App = function(){
             })
             return [postUrl, coords]
         }).then((processedCoordinates)=>{
-            var [postUrl, coords] = processedCoordinates
-            return this.post("/geo_location", postUrl.join("&"))
+            return this.postGeoLocation(processedCoordinates[0])
         })
     }
 
@@ -137,13 +158,14 @@ var App = function(){
             table.appendChild(planetRow)
         })
         div.appendChild(table)
-        var refreshBtn = document.createElement("button")
-        refreshBtn.setAttribute("id", "refresh")
-        refreshBtn.onclick = this.onRefreshButtonClick()
-        refreshBtn.textContent = "Refresh"
-        div.appendChild(refreshBtn)
+        // var refreshBtn = document.createElement("button")
+        // refreshBtn.setAttribute("id", "refresh")
+        // refreshBtn.onclick = this.onRefreshButtonClick()
+        // refreshBtn.textContent = "Refresh"
+        // div.appendChild(refreshBtn)
         this.planetDisplayCreated = true
     }
+
 
     this.updatePlanetDisplay = function(planetData){
         planetData.forEach((d)=>{
@@ -160,20 +182,96 @@ var App = function(){
         })
     }
 
+    this.initGeoLocationDisplay = function () {
+        this.geoLocationIds.forEach((id) => {
+            var node = document.getElementById(id)
+            node.childNodes[1].onkeyup = this.onGeoLocationKeyUp()
+        })
+        var appNode = document.getElementById("app")
+        var resetLocationButton = document.createElement("button")
+        resetLocationButton.setAttribute("id", "reset-location")
+        resetLocationButton.onclick = this.onResetLocationClick()
+        resetLocationButton.textContent = "Reset Geo Location"
+        appNode.appendChild(resetLocationButton)
+    }
+
     this.updateGeoLocationDisplay = function(geoLocation){
-        Object.keys(geoLocation).forEach((key)=>{
-            var node = document.getElementById(key)
-            node.childNodes[1].textContent = parseFloat(
-                geoLocation[key]
+        Object.keys(geoLocation).forEach((id)=>{
+            var node = document.getElementById(id)
+            node.childNodes[1].value = parseFloat(
+                geoLocation[id]
             ).toFixed(2)
         })
     }
 
-    this.onRefreshButtonClick = function(){
-        return (evt)=>{
+    this.getDisplayedGeoLocation = function () {
+        var displayedGeoLocation = this.geoLocationIds.reduce((val, id) => {
+            var node = document.getElementById(id)
+            var nodeVal = parseFloat(node.childNodes[1].value)
+            val[id] = nodeVal
+            if (isNaN(nodeVal)) {
+                val.valid = false
+            }
+            return val
+        }, {valid: true})
+        return displayedGeoLocation
+    }
+
+    this.onGeoLocationKeyUp = function () {
+        return (evt) => {
+            // console.log(evt.key, evt.code)
+            var currentTime = new Date()
+            if (this.keyUpTimer !== null){
+                clearTimeout(this.keyUpTimer)
+            }
+            this.keyUpTimer = setTimeout(() => {
+                var displayedGeoLocation = this.getDisplayedGeoLocation()
+                if (displayedGeoLocation.valid) {
+                    console.log("Using user supplied geo location")
+                    var postUrl = [
+                        `lon=${displayedGeoLocation.lon}`,
+                        `lat=${displayedGeoLocation.lat}`,
+                        `elevation=${displayedGeoLocation.elevation}`
+                    ]
+                    clearInterval(this.updateTimer)
+                    this.postGeoLocation(postUrl)
+                        .then(this.update)
+                        .then(() => {
+                            this.initUpdateTimer()
+                            console.log("Successfully changed geo location")
+                         })
+                }
+            }, this.keyUpInterval)
+        }
+    }
+
+    this.onRefreshButtonClick = function () {
+        return (evt) => {
             console.log("Refresh button clicked!")
             this.update()
         }
+    }
+
+    this.onResetLocationClick = function () {
+        return (evt) => {
+            console.log("Geo location reset clicked")
+            clearInterval(this.updateTimer)
+            this.getPostGeoLocation().then(this.update).then(() => {
+                this.initUpdateTimer()
+                console.log("Successfully reset geo location")
+            })
+        }
+    }
+
+    this.initUpdateTimer = function () {
+        if (this.updateTimer !== null){
+            clearInterval(this.updateTimer)
+        }
+        this.updateTimer = setInterval(
+            this.update.bind(this),
+            this.updateInterval
+        )
+        return this.updateTimer
     }
 
     this.testPerformance = function(n){
