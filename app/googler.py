@@ -1,7 +1,7 @@
 import urllib
 from bs4 import BeautifulSoup
 import requests
-import webbrowser
+# import webbrowser
 
 
 def google_soup(search='hello world', max_results=10, *, country=None, language=None):
