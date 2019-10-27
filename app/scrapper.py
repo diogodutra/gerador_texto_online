@@ -102,7 +102,6 @@ class Scrapper():
             text_clean = []        
             sentences = self.text.split(delimiter)
             for sentence in sentences:
-                #print(sentence)
                 if not any(s in sentence for s in blacklist):
                     text_clean.append(sentence)
                     
