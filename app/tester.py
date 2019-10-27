@@ -1,5 +1,5 @@
 import sys
-from googletrans import Translator
+# from googletrans import Translator
 
 class Tester():
 
