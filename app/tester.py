@@ -1,4 +1,3 @@
-# import sys
 from googletrans import Translator
 
 
