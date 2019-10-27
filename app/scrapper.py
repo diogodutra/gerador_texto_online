@@ -13,18 +13,19 @@ class Scrapper():
     min_match_for_valid_paragraph = 0.2
     
     async def make_request(self, url, force_request=False):
+        print(f"making request to {url}")
         if url != self.url or force_request == True:
             self.url = url
             
-        print(f"making request to {url}")
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url) as resp:
-                if resp.status == 200:
-                    # print(await resp.text())
-                    self.web_page = await resp.text()
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    if resp.status == 200:
+                        # print(await resp.text())
+                        self.web_page = await resp.text()
     
 
     def request(self, url, force_request=False):
+        print(f"making request to {url}")
         if url != self.url or force_request == True:
             self.url = url
             self.web_page = requests.get(self.url)

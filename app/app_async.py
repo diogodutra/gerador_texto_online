@@ -68,7 +68,8 @@ async def spin(request):
 async def scrap(request):
     url = request.match_info['url']
     scrapper = Scrapper()
-    scrapper.request(url)
+    # scrapper.request(url)
+    scrapper.make_request(url)
     print(await scrapper.text)
     json = {'url': url, 'text': await scrapper.text}    
     return await web.json_response(await json)
