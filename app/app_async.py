@@ -62,13 +62,14 @@ async def spin(request):
     return web.json_response(json)
     
 
+# BUG: ?
 @routes.get("/scrapper/{url}")
 async def scrap(request):
     url = request.match_info['url']
     scrapper = Scrapper()
     scrapper.request(url)
-    scrapped_text = scrapper.extract_text()
-    json = {'url': url, 'text': await scrapped_text}
+    scrapped_text = await scrapper.extract_text()
+    json = {'url': url, 'text': scrapped_text}
     return web.json_response(json)
     
 
@@ -76,7 +77,7 @@ async def scrap(request):
 async def web_search(request):
     keywords = request.match_info['keywords']
     country = 'br'
-    urls, titles, paragraphs, _ = google(keywords, country=country)
+    urls, titles, paragraphs, _ = await google(keywords, country=country)
     json = {}
     for i in range(urls):
         json[i] = {'url': urls[i], 'title': titles[i], 'description': paragraphs[i]}
