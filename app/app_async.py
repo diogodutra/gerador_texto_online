@@ -2,8 +2,9 @@ from aiohttp import web
 
 from .planet_tracker import PlanetTracker
 
-from .spinner import Spinner
+# from .spinner import Spinner
 # import spinner
+from .googler import google
 
 __all__ = ["app"]
 
