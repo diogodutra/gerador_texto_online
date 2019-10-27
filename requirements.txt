@@ -5,5 +5,3 @@ requests
 googletrans
 bs4
 googletrans
-difflib
-re
