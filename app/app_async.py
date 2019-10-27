@@ -3,7 +3,7 @@ import asyncio
 
 from .planet_tracker import PlanetTracker
 
-from .googler import google
+from .googler import Googler
 from .scrapper import Scrapper
 from .spinner import Spinner
 
@@ -71,7 +71,9 @@ async def web_search(request):
     urls = ['www.google.com', 'www.yahoo.com']
     titles = ['title1', 'title2']
     descriptions = ['description1', 'description2']
-    urls, titles, descriptions, _ = await google(keywords, country=country)
+    googler = Googler()
+    urls, titles, descriptions, _ = googler.google(keywords, country=country)
+    # urls, titles, descriptions, _ = google(keywords, country=country)
     json = []
     # json = {'url': urls[0], 'title': titles[0], 'description': descriptions[0]}  
     for i in range(len(urls)):

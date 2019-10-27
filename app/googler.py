@@ -3,92 +3,99 @@ from bs4 import BeautifulSoup
 import requests
 
 
-def google_soup(search='hello world', max_results=10, *, country=None, language=None):
-    text = urllib.parse.quote_plus(search)
-    google_url = 'https://google.com/search?q=' + text
-    
-    if country is not None:
-        google_url += '&cr=country' + country
-    if language is not None:
-        google_url += '&lr=lang_' + language
-        
-    url_header = '/url?q='
-    urls = []
-    ignore_links_with_substrings = ['google.com']
-    domains = []
-    soups = []
-    
-    max_pages = max_results // 10
-    for result_page in range(max_pages):
-        #BUG: deal error when Google has less results than max_results
-        #BUG: deal error when Google blocks robots
-        google_url_pageN = google_url + '&start=' + str(result_page+1)
-
-        response = requests.get(google_url_pageN)
-
-        #with open('output.html', 'wb') as f:
-        #    f.write(response.content)
-        #webbrowser.open('output.html')
-
-        soups.append(BeautifulSoup(response.text, "lxml"))
-            
-    return soups
-
-
-def extract_soups(soups):
+class Googler():
     urls = []
     titles = []
-    paragraphs = []
-    
-    for soup in soups:
-        item = soup.html.body
-        # item = soup.find(id='main')
+    descriptions = []
+    soups = []
 
-        if item is not None:
-            results = list(item.children)
-            for result in results[3:]:
-                try:
-                    title = result.div.div.a.div.string
-                    title = title.split(' -')[0].split(' |')[0]
-                    titles.append(title)
-                    
-                    urls.append(result.div.div.a.get('href').split('/url?q=')[1].split('&sa=')[0])
-                    
-                    item = result.div.div.find_next_sibling().find_next_sibling().div.div.div.div.div
-                    paragraphs.append(list(item.children)[-1])
-                
-                except:
-                    #not a valid result item
-                    paragraphs.append('')
-                    pass
+    def get_soup(self, search='hello world', max_results=10,
+         *, country=None, language=None):
+
+         self.soups = []
+
+        text = urllib.parse.quote_plus(search)
+        google_url = 'https://google.com/search?q=' + text
+        
+        if country is not None:
+            google_url += '&cr=country' + country
+        if language is not None:
+            google_url += '&lr=lang_' + language
             
-    return urls, titles, paragraphs
+        # url_header = '/url?q='
+        # ignore_links_with_substrings = ['google.com']
+        # domains = []
+        
+        max_pages = max_results // 10
+        for result_page in range(max_pages):
+            #BUG: deal error when Google has less results than max_results
+            #BUG: deal error when Google blocks robots
+            google_url_pageN = google_url + '&start=' + str(result_page+1)
+
+            response = requests.get(google_url_pageN)
+
+            #with open('output.html', 'wb') as f:
+            #    f.write(response.content)
+            #webbrowser.open('output.html')
+
+            self.soups.append(BeautifulSoup(response.text, "lxml"))
+                
+        return self.soups
 
 
-def google(search='hello world', max_results=10, *, country=None, language=None):
-    soups = google_soup(search, max_results=max_results, language=language, country=country)
-    urls, titles, paragraphs = extract_soups(soups)
+    def get_metadata(self):      
+        self.urls = []
+        self.titles = []
+        self.descriptions = []
 
-    return urls, titles, paragraphs, soups
+        for soup in self.soups:
+            item = soup.html.body
+            # item = soup.find(id='main')
+
+            if item is not None:
+                results = list(item.children)
+                for result in results[3:]:
+                    try:
+                        title = result.div.div.a.div.string
+                        title = title.split(' -')[0].split(' |')[0]
+                        self.titles.append(title)
+                        
+                        self.urls.append(result.div.div.a.get('href').split('/url?q=')[1].split('&sa=')[0])
+                        
+                        item = result.div.div.find_next_sibling().find_next_sibling().div.div.div.div.div
+                        self.descriptions.append(list(item.children)[-1])
+                    
+                    except:
+                        #not a valid result item
+                        self.descriptions.append('')
+                        pass
+                
+        return urls, titles, descriptions
 
 
-'''
-if __name__=="__main__":
-    "Example of usage."
+    def google(self, search='hello world', max_results=10, *, country=None, language=None):
+        self.get_soup(search, max_results=max_results, language=language, country=country)
+        urls, titles, paragraphs = self.get_metadata(soups)
+        return urls, titles, paragraphs, soups
 
-    keywords = '"chá de bebê" lista presentes'
-    country = 'BR'
 
-    #avoid Googling too often, otherwise your IP will be blocked
-    force_google = True
+    '''
+    if __name__=="__main__":
+        "Example of usage."
 
-    if 'soups' not in locals() or force_google:
-        urls, titles, paragraphs, soups = google(keywords, country=country)
+        keywords = '"chá de bebê" lista presentes'
+        country = 'BR'
 
-    n=9
-    for url, title, paragraph in zip(urls[:n], titles[:n], paragraphs[:n]):
-        print(url)
-        print(title)
-        print(paragraph)
-        print()
-'''
+        #avoid Googling too often, otherwise your IP will be blocked
+        force_google = True
+
+        if 'soups' not in locals() or force_google:
+            urls, titles, paragraphs, soups = google(keywords, country=country)
+
+        n=9
+        for url, title, paragraph in zip(urls[:n], titles[:n], paragraphs[:n]):
+            print(url)
+            print(title)
+            print(paragraph)
+            print()
+    '''
