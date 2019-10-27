@@ -2,10 +2,9 @@ from aiohttp import web
 
 from .planet_tracker import PlanetTracker
 
-# from .tester import Tester
-from .spinner import Spinner
-# import spinner
 # from .googler import google
+from .scrapper import Scrapper
+from .spinner import Spinner
 
 __all__ = ["app"]
 
@@ -55,13 +54,22 @@ async def spin(request):
 # Aí é só checar na tabela do aumento progressivo da idade, que começa em 53 anos para a mulher e 55 anos para o homem, e verificar qual idade mínima vai vigorar após este tempo. Pela tabela, a idade sobe um ano a cada dois anos a partir de 2020. Portanto, os 65 anos do homem só serão cobrados a partir de 2038.'
 
     text = request.match_info['text']
-
     lang='pt'
 
     spinner = Spinner()
     spinned_text = spinner.spin(text, lang)
+    json = {'text': text, 'spin': spinned_text}
+    return web.json_response(json)
+    
 
-    return web.json_response({'text': text, 'spin': spinned_text})
+@routes.get("/scrapper/{url}")
+async def scrap(request):
+    url = request.match_info['url']
+    scrapper = Scrapper()
+    scrapper.request(url)
+    scrapper.extract_text()
+    json = {'url': url, 'text': scrapper.text}
+    return web.json_response(json)
 
 
 app = web.Application()
