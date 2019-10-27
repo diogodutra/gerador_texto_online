@@ -72,6 +72,7 @@ def google(search='hello world', max_results=10, *, country=None, language=None)
     return urls, titles, paragraphs, soups
 
 
+'''
 if __name__=="__main__":
     "Example of usage."
 
@@ -90,3 +91,4 @@ if __name__=="__main__":
         print(title)
         print(paragraph)
         print()
+'''
