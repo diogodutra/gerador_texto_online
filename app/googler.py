@@ -20,7 +20,7 @@ class Googler():
                 # if resp.status == 200:
                 #     print(await resp.text())
                     
-                text = await resp.text()
+                text = resp.text()
 
         return text
 
@@ -50,9 +50,9 @@ class Googler():
 
             # response = requests.get(google_url_pageN)
 
-            # #with open('output.html', 'wb') as f:
-            # #    f.write(response.content)
-            # #webbrowser.open('output.html')
+            # # #with open('output.html', 'wb') as f:
+            # # #    f.write(response.content)
+            # # #webbrowser.open('output.html')
 
             # self.soups.append(BeautifulSoup(response.text, "lxml"))
             
