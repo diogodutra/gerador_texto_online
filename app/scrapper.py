@@ -11,6 +11,14 @@ class Scrapper():
     html = None
     text = ''
     min_match_for_valid_paragraph = 0.2
+
+    def scrap(self, url):
+        self.request(url)
+        self.get_html()
+        self.extract_text()
+        return self.text
+
+
     
     async def make_request(self, url, force_request=False):
         print(f"making request to {url}")
@@ -43,9 +51,6 @@ class Scrapper():
 
 
     def extract_text(self):
-        
-        self.get_html()
-
         if self.html is not None:
             self.text = ''
             paragraphs = []

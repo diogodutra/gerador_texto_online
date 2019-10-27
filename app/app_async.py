@@ -68,11 +68,12 @@ async def spin(request):
 async def scrap(request):
     url = request.match_info['url']
     scrapper = Scrapper()
-    scrapper.text = 'text dummy1'
-    scrapper.request(url)
-    scrapper.text = 'text dummy2'
+    scrapper.text = 'text dummy'
+    # scrapper.request(url)
     # scrapper.make_request(url)
     # print(scrapper.text)
+    # scrapper.extract_text()
+    scrapper.scrap(url)
     json = {'url': url, 'text': scrapper.text}    
     return web.json_response(json)
     # loop = asyncio.get_event_loop()
