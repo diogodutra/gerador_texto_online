@@ -4,7 +4,6 @@ django-heroku
 requests
 googletrans
 bs4
-sys
 googletrans
 webbrowser
 urllib
