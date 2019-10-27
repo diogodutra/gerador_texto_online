@@ -1,6 +1,0 @@
-django
-gunicorn
-django-heroku
-requests
-googletrans
-bs4
