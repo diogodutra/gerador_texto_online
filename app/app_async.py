@@ -47,7 +47,6 @@ async def hello(request):
 async def spin(request):
     text = request.match_info['text']
     lang='pt'
-
     spinner = Spinner()
     spinned_text = spinner.spin(text, lang)
     json = {'text': text, 'spin': spinned_text}
@@ -60,7 +59,6 @@ async def spin(request):
 async def scrap(request):
     url = request.match_info['url']
     scrapper = Scrapper()
-    scrapper.text = 'text dummy'
     scrapper.scrap(url)
     json = {'url': url, 'text': scrapper.text}    
     return web.json_response(json)
@@ -70,10 +68,10 @@ async def scrap(request):
 async def web_search(request):
     keywords = request.match_info['keywords']
     country = 'br'
-    urls, titles, descriptions, _ = google(keywords, country=country)
-    # urls = ['www.google.com', 'www.yahoo.com']
-    # titles = ['title1', 'title2']
-    # descriptions = ['description1', 'description2']
+    urls = ['www.google.com', 'www.yahoo.com']
+    titles = ['title1', 'title2']
+    descriptions = ['description1', 'description2']
+    urls, titles, descriptions, _ = await google(keywords, country=country)
     json = []
     # json = {'url': urls[0], 'title': titles[0], 'description': descriptions[0]}  
     for i in range(len(urls)):
