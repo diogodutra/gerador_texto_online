@@ -42,24 +42,25 @@ def extract_soups(soups):
     
     for soup in soups:
         item = soup.html.body
-        item = soup.find(id='main')
+        # item = soup.find(id='main')
 
-        results = list(item.children)
-        for result in results[3:]:
-            try:
-                title = result.div.div.a.div.string
-                title = title.split(' -')[0].split(' |')[0]
-                titles.append(title)
+        if item is not None:
+            results = list(item.children)
+            for result in results[3:]:
+                try:
+                    title = result.div.div.a.div.string
+                    title = title.split(' -')[0].split(' |')[0]
+                    titles.append(title)
+                    
+                    urls.append(result.div.div.a.get('href').split('/url?q=')[1].split('&sa=')[0])
+                    
+                    item = result.div.div.find_next_sibling().find_next_sibling().div.div.div.div.div
+                    paragraphs.append(list(item.children)[-1])
                 
-                urls.append(result.div.div.a.get('href').split('/url?q=')[1].split('&sa=')[0])
-                
-                item = result.div.div.find_next_sibling().find_next_sibling().div.div.div.div.div
-                paragraphs.append(list(item.children)[-1])
-            
-            except:
-                #not a result item
-                paragraphs.append('')
-                pass
+                except:
+                    #not a valid result item
+                    paragraphs.append('')
+                    pass
             
     return urls, titles, paragraphs
 
