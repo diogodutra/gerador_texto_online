@@ -1,4 +1,5 @@
 from aiohttp import web
+import asyncio
 
 from .planet_tracker import PlanetTracker
 
@@ -68,7 +69,8 @@ async def scrap(request):
     url = request.match_info['url']
     scrapper = Scrapper()
     # scrapper.request(url)
-    scrapper.make_request(url)
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(scrapper.make_request(url))
     async with scrapper.extract_text() as scrapped_text:
         json = {'url': url, 'text': await scrapped_text}        
         return await web.json_response(json)
