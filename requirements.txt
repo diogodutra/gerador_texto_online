@@ -4,4 +4,3 @@ django-heroku
 requests
 googletrans
 bs4
-googletrans
