@@ -71,7 +71,7 @@ async def scrap(request):
     # scrapper.request(url)
     scrapper.make_request(url)
     # print(await scrapper.text)
-    json = {'url': url, 'text': scrapper.text}    
+    json = {'url': url, 'text': await scrapper.text}    
     return web.json_response(json)
     # loop = asyncio.get_event_loop()
     # loop.run_until_complete(scrapper.make_request(url))
