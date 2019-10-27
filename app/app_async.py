@@ -69,7 +69,7 @@ async def scrap(request):
     scrapper = Scrapper()
     scrapper.request(url)
     async with scrapper.extract_text() as scrapped_text:
-        json = {'url': url, 'text': scrapped_text}
+        json = {'url': url, 'text': await scrapped_text}
         
     return web.json_response(json)
     
