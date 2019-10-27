@@ -71,7 +71,10 @@ async def web_search(request):
     keywords = request.match_info['keywords']
     country = 'br'
     urls, titles, descriptions, _ = google(keywords, country=country)
-    json = [] 
+    urls = ['www.google.com', 'www.yahoo.com']
+    titles = ['title1', 'title2']
+    descriptions = ['description1', 'description2']
+    json = []
     # json = {'url': urls[0], 'title': titles[0], 'description': descriptions[0]}  
     for i in range(len(urls)):
         json.append({'url': urls[i], 'title': titles[i], 'description': descriptions[i]})
