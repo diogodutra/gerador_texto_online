@@ -109,6 +109,7 @@ class Scrapper():
                 self.text = self.text.replace(forbidden, '')
 
 
+'''
 if __name__=="__main__":
     "Example of usage."
 
@@ -117,3 +118,4 @@ if __name__=="__main__":
     scrapper.request(url)
     scrapper.extract_text()
     print(scrapper.text)
+'''

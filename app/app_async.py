@@ -70,6 +70,16 @@ async def scrap(request):
     scrapped_text = scrapper.extract_text()
     json = {'url': url, 'text': await scrapped_text}
     return web.json_response(json)
+    
+
+# @routes.get("/googler/{url}")
+# async def google(request):
+#     url = request.match_info['url']
+#     scrapper = Scrapper()
+#     scrapper.request(url)
+#     scrapped_text = scrapper.extract_text()
+#     json = {'url': url, 'text': await scrapped_text}
+#     return web.json_response(json)
 
 
 app = web.Application()
