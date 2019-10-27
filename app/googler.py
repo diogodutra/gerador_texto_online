@@ -56,7 +56,8 @@ class Googler():
 
             # self.soups.append(BeautifulSoup(response.text, "lxml"))
             
-            self.soups.append(BeautifulSoup(self.make_request(google_url_pageN), "lxml"))
+            text = self.make_request(google_url_pageN)
+            self.soups.append(BeautifulSoup(text, "lxml"))
                 
         return self.soups
 
