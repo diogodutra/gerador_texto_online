@@ -2,7 +2,7 @@ from aiohttp import web
 
 from .planet_tracker import PlanetTracker
 
-# from .googler import google
+from .googler import google
 from .scrapper import Scrapper
 from .spinner import Spinner
 
@@ -72,14 +72,16 @@ async def scrap(request):
     return web.json_response(json)
     
 
-# @routes.get("/googler/{url}")
-# async def google(request):
-#     url = request.match_info['url']
-#     scrapper = Scrapper()
-#     scrapper.request(url)
-#     scrapped_text = scrapper.extract_text()
-#     json = {'url': url, 'text': await scrapped_text}
-#     return web.json_response(json)
+@routes.get("/googler/{keywords}")
+async def web_search(request):
+    keywords = request.match_info['keywords']
+    country = 'br'
+    urls, titles, paragraphs, _ = google(keywords, country=country)
+    json = {}
+    for i in range(urls):
+        json[i] = {'url': urls[i], 'title': titles[i], 'description': paragraphs[i]}
+
+    return web.json_response(json)
 
 
 app = web.Application()
