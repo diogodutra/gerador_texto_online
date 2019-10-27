@@ -2,7 +2,7 @@ from aiohttp import web
 
 from .planet_tracker import PlanetTracker
 
-from spinner import Spinner
+# from spinner import Spinner
 
 __all__ = ["app"]
 
