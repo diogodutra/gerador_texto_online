@@ -27,7 +27,7 @@ class Spinner():
         self.text_new = self.paraphrase_with_translation()
         return self.text_new
 
-
+'''
 if __name__=="__main__":
     "Example of usage."
 
@@ -44,3 +44,4 @@ Aí é só checar na tabela do aumento progressivo da idade, que começa em 53 a
     spinner = Spinner()
     spinner.spin(text, lang)
     print(spinner.text_new)
+'''

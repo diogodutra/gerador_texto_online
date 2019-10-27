@@ -1,0 +1,9 @@
+requests
+googletrans
+bs4
+sys
+googletrans
+webbrowser
+urllib
+difflib
+re
