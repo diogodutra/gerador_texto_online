@@ -9,6 +9,9 @@ pyephem = "*"
 gunicorn = "*"
 flask = "*"
 uvicorn = "*"
+requests = "*"
+googletrans = "*"
+bs4 = "*"
 
 [dev-packages]
 
