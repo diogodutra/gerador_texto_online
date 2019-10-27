@@ -12,7 +12,7 @@ class Googler():
     def get_soup(self, search='hello world', max_results=10,
          *, country=None, language=None):
 
-         self.soups = []
+        self.soups = []
 
         text = urllib.parse.quote_plus(search)
         google_url = 'https://google.com/search?q=' + text
@@ -70,13 +70,13 @@ class Googler():
                         self.descriptions.append('')
                         pass
                 
-        return urls, titles, descriptions
+        return self.urls, self.titles, self.descriptions
 
 
     def google(self, search='hello world', max_results=10, *, country=None, language=None):
         self.get_soup(search, max_results=max_results, language=language, country=country)
-        urls, titles, paragraphs = self.get_metadata(soups)
-        return urls, titles, paragraphs, soups
+        urls, titles, paragraphs = self.get_metadata()
+        return self.urls, self.titles, self.descriptions, self.soups
 
 
     '''

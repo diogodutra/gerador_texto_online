@@ -72,7 +72,7 @@ async def web_search(request):
     titles = ['title1', 'title2']
     descriptions = ['description1', 'description2']
     googler = Googler()
-    # urls, titles, descriptions, _ = googler.google(keywords, country=country)
+    urls, titles, descriptions, _ = googler.google(keywords, country=country)
     # urls, titles, descriptions, _ = google(keywords, country=country)
     json = []
     # json = {'url': urls[0], 'title': titles[0], 'description': descriptions[0]}  
