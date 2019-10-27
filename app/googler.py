@@ -20,9 +20,9 @@ class Googler():
                 # if resp.status == 200:
                 #     print(await resp.text())
                     
-                text = resp.text()
+                text = await resp.text()
 
-        return text
+        return str(text)
 
 
     def get_soup(self, search='hello world', max_results=10,
