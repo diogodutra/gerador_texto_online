@@ -2,12 +2,28 @@ import urllib
 from bs4 import BeautifulSoup
 import requests
 
+import asyncio
+import aiohttp
+
+    
+async def make_request(url):
+    # print(f"making request to {url}")
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            # if resp.status == 200:
+            #     print(await resp.text())
+                
+            text = await resp.text()
+
+    return text
+
 
 class Googler():
     urls = []
     titles = []
     descriptions = []
     soups = []
+
 
     def get_soup(self, search='hello world', max_results=10,
          *, country=None, language=None):
@@ -32,13 +48,15 @@ class Googler():
             #BUG: deal error when Google blocks robots
             google_url_pageN = google_url + '&start=' + str(result_page+1)
 
-            response = requests.get(google_url_pageN)
+            # response = requests.get(google_url_pageN)
 
-            #with open('output.html', 'wb') as f:
-            #    f.write(response.content)
-            #webbrowser.open('output.html')
+            # #with open('output.html', 'wb') as f:
+            # #    f.write(response.content)
+            # #webbrowser.open('output.html')
 
-            self.soups.append(BeautifulSoup(response.text, "lxml"))
+            # self.soups.append(BeautifulSoup(response.text, "lxml"))
+            
+            self.soups.append(BeautifulSoup(make_request(google_url_pageN), "lxml"))
                 
         return self.soups
 
