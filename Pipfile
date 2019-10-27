@@ -9,6 +9,15 @@ pyephem = "*"
 gunicorn = "*"
 flask = "*"
 uvicorn = "*"
+requests = "*"
+googletrans = "*"
+bs4 = "*"
+sys = "*"
+googletrans = "*"
+webbrowser = "*"
+urllib = "*"
+difflib = "*"
+re = "*"
 
 [dev-packages]
 
