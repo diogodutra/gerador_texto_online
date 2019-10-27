@@ -1,47 +1,35 @@
-from aiohttp import web
+import sys
+from googletrans import Translator
 
-from .planet_tracker import PlanetTracker
+class Spinner():
 
-from spinner import Spinner
-
-__all__ = ["app"]
-
-routes = web.RouteTableDef()
-
-
-@routes.get("/planets/{name}")
-async def get_planet_ephmeris(request):
-    planet_name = request.match_info['name']
-    data = request.query
-    try:
-        geo_location_data = {
-            "lon": str(data["lon"]),
-            "lat": str(data["lat"]),
-            "elevation": float(data["elevation"])
-        }
-    except KeyError as err:
-        geo_location_data = {
-            "lon": "-0.0005",
-            "lat": "51.4769",
-            "elevation": 0.0,
-        }
-    print(f"get_planet_ephmeris: {planet_name}, {geo_location_data}")
-    tracker = PlanetTracker()
-    tracker.lon = geo_location_data["lon"]
-    tracker.lat = geo_location_data["lat"]
-    tracker.elevation = geo_location_data["elevation"]
-    planet_data = tracker.calc_planet(planet_name)
-    planet_data["geo_location"] = geo_location_data
-    return web.json_response(planet_data)
+    lang = 'pt'
+    text_old = ''
+    text_new = ''
+    friend_languages = {
+        'pt': 'fr',
+        'fr': 'pt',
+        'en': 'es',
+        'es': 'en',
+    }
 
 
-@routes.get('/')
-async def hello(request):
-    return web.FileResponse("./client/index.html")
-    
+    def paraphrase_with_translation(self):
+        translator = Translator()
+        translation = translator.translate(self.text_old, dest=self.friend_languages[self.lang])
+        paraphrased = translator.translate(translation.text, dest=self.lang)
+        return paraphrased.text
 
-@routes.get("/spinner/{text}")
-async def spin(request):
+
+    def spin(self, text, lang='pt'):
+        self.text_old = text
+        self.lang = lang
+        self.text_new = self.paraphrase_with_translation()
+        return self.text_new
+
+
+if __name__=="__main__":
+    "Example of usage."
 
     text = 'A comissão especial que analisa a proposta de reforma da Previdência na Câmara dos Deputados inicia na tarde desta terça-feira (25) a discussão do relatório apresentado na semana passada pelo relator , deputado Arthur Maia (PPS-BA).\
 Depois de fechar acordo com parlamentares da oposição, que tentavam obstruir a sessão de leitura do parecer do relator, o presidente da comissão da reforma da Previdência , deputado Carlos Marun (PMDB-MS), designou que todas as reuniões desta semana sejam para discutir o relatório e apresentar pedido de vista.\
@@ -51,16 +39,8 @@ O relatório de Arthur Maia fixa a idade mínima de aposentadoria em 62 anos par
 Para a aposentadoria por tempo de contribuição, o segurado terá que calcular quanto falta para se aposentar pelas regras atuais – 35 anos para o homem e 30 anos para a mulher – e adicionar um pedágio de 30%.\
 Aí é só checar na tabela do aumento progressivo da idade, que começa em 53 anos para a mulher e 55 anos para o homem, e verificar qual idade mínima vai vigorar após este tempo. Pela tabela, a idade sobe um ano a cada dois anos a partir de 2020. Portanto, os 65 anos do homem só serão cobrados a partir de 2038.'
 
-    # text = request.match_info['text']
-
     lang='pt'
 
     spinner = Spinner()
-    spinned_text = spinner.spin(text, lang)
-
-    return {'text': text, 'spin': spinned_text}
-
-
-app = web.Application()
-app.add_routes(routes)
-app.router.add_static("/", "./client")
+    spinner.spin(text, lang)
+    print(spinner.text_new)
