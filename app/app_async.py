@@ -39,7 +39,7 @@ async def get_planet_ephmeris(request):
 async def hello(request):
     return web.FileResponse("./client/index.html")
     
-
+'''
 @routes.get("/spinner/{text}")
 async def spin(request):
 
@@ -59,6 +59,7 @@ Aí é só checar na tabela do aumento progressivo da idade, que começa em 53 a
     spinned_text = spinner.spin(text, lang)
 
     return {'text': text, 'spin': spinned_text}
+'''
 
 
 app = web.Application()
