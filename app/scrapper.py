@@ -4,6 +4,7 @@ import re
 from difflib import SequenceMatcher
 import asyncio
 import aiohttp
+import lxml
 
 class Scrapper():
     url = ''
