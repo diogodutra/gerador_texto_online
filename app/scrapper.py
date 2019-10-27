@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import re
 from difflib import SequenceMatcher
+import asyncio
+import aiohttp
 
 class Scrapper():
     url = ''
@@ -9,6 +11,17 @@ class Scrapper():
     html = None
     text = ''
     min_match_for_valid_paragraph = 0.2
+    
+    async def make_request(self, url, force_request=False):
+        if url != self.url or force_request == True:
+            self.url = url
+            
+        print(f"making request to {url}")
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as resp:
+                if resp.status == 200:
+                    # print(await resp.text())
+                    self.web_page = await resp.text()
     
 
     def request(self, url, force_request=False):
