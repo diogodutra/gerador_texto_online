@@ -69,8 +69,8 @@ async def scrap(request):
     url = request.match_info['url']
     scrapper = Scrapper()
     # scrapper.request(url)
-    scrapper.make_request(url)
-    print(await scrapper.text)
+    await scrapper.make_request(url)
+    print(scrapper.text)
     json = {'url': url, 'text': scrapper.text}    
     return web.json_response(json)
     # loop = asyncio.get_event_loop()
