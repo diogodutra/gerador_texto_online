@@ -61,7 +61,7 @@ Aí é só checar na tabela do aumento progressivo da idade, que começa em 53 a
     spinner = Spinner()
     spinned_text = spinner.spin(text, lang)
 
-    return {'text': text, 'spin': spinned_text}
+    return {'text': text, 'spin': await spinned_text}
 
 
 app = web.Application()
