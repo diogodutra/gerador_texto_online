@@ -13,17 +13,6 @@ class Googler():
     soups = []
     text = ''
 
-    
-    async def make_request(self, url):
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url) as resp:
-                # if resp.status == 200:
-                #     print(await resp.text())
-                    
-                self.text = await resp.text()
-
-        # return str(text)
-
 
     def get_soup(self, search='hello world',
          *, country=None, language=None, max_results=10):
@@ -50,11 +39,6 @@ class Googler():
 
             response = requests.get(google_url_pageN)
             self.soups.append(BeautifulSoup(response.text, "lxml"))
-            
-            # loop = asyncio.get_event_loop()
-            # loop.run_until_complete(self.make_request(google_url_pageN))
-            # # text = self.make_request(google_url_pageN)
-            # self.soups.append(BeautifulSoup(self.text, "lxml"))
                 
         return self.soups
 
