@@ -68,18 +68,22 @@ async def scrap(request):
 async def web_search(request):
     keywords = request.match_info['keywords']
     country = 'br'
+    urls = ['www.google.com', 'www.yahoo.com']
+    titles = ['title1', 'title2']
+    descriptions = ['description1', 'description2']
     googler = Googler()
-    # googler.google(keywords, country=country)
-    urls, titles, descriptions = googler.google(keywords, country=country)
+    # urls, titles, descriptions = googler.google(keywords, country=country)
+    googler.google(keywords, country=country)
     json = {}
     for i in range(len(urls)):
-        json[i] = {'url': urls[i], 'title': titles[i], 'description': descriptions[i]}
-        # j = i
-        # json[i] = {
-        #         'url': googler.urls[j],
-        #         'title': googler.titles[j],
-        #         'description': googler.descriptions[j]
-        #         }
+        # j = max(1, len(urls)-1)
+        # json[i] = {'url': urls[j], 'title': titles[j], 'description': descriptions[j]}
+        j = i
+        json[i] = {
+                'url': googler.urls[j],
+                'title': googler.titles[j],
+                'description': googler.descriptions[j]
+                }
 
     return web.json_response(json)
 
