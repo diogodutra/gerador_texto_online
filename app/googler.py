@@ -56,7 +56,9 @@ class Googler():
                 results = list(item.children)
                 for result in results[3:]:
                     try:
-                        self.urls.append(result.div.div.a.get('href').split('/url?q=')[1].split('&sa=')[0])
+                        url = result.div.div.a.get('href').split('/url?q=')[1].split('&sa=')[0]
+                        # if 
+                        self.urls.append()
                         
                         title = result.div.div.a.div.string
                         title = title.split(' -')[0].split(' |')[0]
@@ -67,7 +69,7 @@ class Googler():
                     
                     except:
                         #not a valid result item
-                        self.descriptions.append('errou! ')
+                        self.descriptions.append('')
                         pass
                 
         return self.urls, self.titles, self.descriptions
