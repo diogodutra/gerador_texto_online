@@ -66,24 +66,24 @@ class Googler():
 
         for soup in self.soups:
             item = soup.html.body
-            # item = soup.find(id='main')
+            item = soup.find(id='main')
 
             if item is not None:
                 results = list(item.children)
                 for result in results[3:]:
                     try:
+                        self.urls.append(result.div.div.a.get('href').split('/url?q=')[1].split('&sa=')[0])
+                        
                         title = result.div.div.a.div.string
                         title = title.split(' -')[0].split(' |')[0]
                         self.titles.append(title)
-                        
-                        self.urls.append(result.div.div.a.get('href').split('/url?q=')[1].split('&sa=')[0])
                         
                         item = result.div.div.find_next_sibling().find_next_sibling().div.div.div.div.div
                         self.descriptions.append(list(item.children)[-1])
                     
                     except:
                         #not a valid result item
-                        self.descriptions.append('')
+                        self.descriptions.append('errou! ')
                         pass
                 
         return self.urls, self.titles, self.descriptions
