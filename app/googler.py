@@ -25,8 +25,8 @@ class Googler():
         # return str(text)
 
 
-    def get_soup(self, search='hello world', max_results=10,
-         *, country=None, language=None):
+    def get_soup(self, search='hello world',
+         *, country=None, language=None, max_results=10):
 
         self.soups = []
 
@@ -48,18 +48,13 @@ class Googler():
             #BUG: deal error when Google blocks robots
             google_url_pageN = google_url + '&start=' + str(result_page+1)
 
-            # response = requests.get(google_url_pageN)
-
-            # # #with open('output.html', 'wb') as f:
-            # # #    f.write(response.content)
-            # # #webbrowser.open('output.html')
-
-            # self.soups.append(BeautifulSoup(response.text, "lxml"))
+            response = requests.get(google_url_pageN)
+            self.soups.append(BeautifulSoup(response.text, "lxml"))
             
-            loop = asyncio.get_event_loop()
-            loop.run_until_complete(self.make_request(google_url_pageN))
-            # text = self.make_request(google_url_pageN)
-            self.soups.append(BeautifulSoup(self.text, "lxml"))
+            # loop = asyncio.get_event_loop()
+            # loop.run_until_complete(self.make_request(google_url_pageN))
+            # # text = self.make_request(google_url_pageN)
+            # self.soups.append(BeautifulSoup(self.text, "lxml"))
                 
         return self.soups
 
@@ -94,8 +89,8 @@ class Googler():
         return self.urls, self.titles, self.descriptions
 
 
-    def google(self, search='hello world', max_results=10, *, country=None, language=None):
-        self.get_soup(search, max_results=max_results, language=language, country=country)
+    def google(self, search='hello world', *, country=None, language=None, max_results=10):
+        self.get_soup(search, language=language, country=country, max_results=max_results)
         urls, titles, descriptions = self.get_metadata()
         return urls, titles, descriptions
 
