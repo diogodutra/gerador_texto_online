@@ -12,6 +12,7 @@ class Googler():
     descriptions = []
     soups = []
     text = ''
+    blacklist = ['youtube', 'facebook', 'twitter']
 
 
     def get_soup(self, search='hello world',
@@ -57,19 +58,23 @@ class Googler():
                 for result in results[3:]:
                     try:
                         url = result.div.div.a.get('href').split('/url?q=')[1].split('&sa=')[0]
-                        # if 
-                        self.urls.append()
-                        
-                        title = result.div.div.a.div.string
-                        title = title.split(' -')[0].split(' |')[0]
-                        self.titles.append(title)
-                        
-                        item = result.div.div.find_next_sibling().find_next_sibling().div.div.div.div.div
-                        self.descriptions.append(list(item.children)[-1])
+                        if any([substring in url for substring in self.blacklist]):
+                            # ignore this result
+                            pass
+
+                        else:
+                            self.urls.append()
+                            
+                            title = result.div.div.a.div.string
+                            title = title.split(' -')[0].split(' |')[0]
+                            self.titles.append(title)
+                            
+                            item = result.div.div.find_next_sibling().find_next_sibling().div.div.div.div.div
+                            self.descriptions.append(list(item.children)[-1])
                     
                     except:
                         #not a valid result item
-                        self.descriptions.append('')
+                        # self.descriptions.append('')
                         pass
                 
         return self.urls, self.titles, self.descriptions
