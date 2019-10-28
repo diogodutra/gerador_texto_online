@@ -27,10 +27,6 @@ class Googler():
             google_url += '&cr=country' + country
         if language is not None:
             google_url += '&lr=lang_' + language
-            
-        # url_header = '/url?q='
-        # ignore_links_with_substrings = ['google.com']
-        # domains = []
         
         max_pages = max_results // 10
         for result_page in range(max_pages):
@@ -74,7 +70,7 @@ class Googler():
                     
                     except:
                         #not a valid result item
-                        # self.descriptions.append('')
+                        self.descriptions.append('')
                         pass
                 
         return self.urls, self.titles, self.descriptions
