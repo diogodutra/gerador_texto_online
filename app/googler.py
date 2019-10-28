@@ -59,7 +59,7 @@ class Googler():
                             pass
 
                         else:
-                            self.urls.append()
+                            self.urls.append(url)
                             
                             title = result.div.div.a.div.string
                             title = title.split(' -')[0].split(' |')[0]
