@@ -5,23 +5,24 @@ import requests
 import asyncio
 import aiohttp
 
-    
-async def make_request(url):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as resp:
-            # if resp.status == 200:
-            #     print(await resp.text())
-                
-            text = await resp.text()
-
-    return str(text)
-
 
 class Googler():
     urls = []
     titles = []
     descriptions = []
     soups = []
+    text = ''
+
+    
+    async def make_request(self, url):
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as resp:
+                # if resp.status == 200:
+                #     print(await resp.text())
+                    
+                self.text = await resp.text()
+
+        # return str(text)
 
 
     def get_soup(self, search='hello world', max_results=10,
@@ -56,9 +57,9 @@ class Googler():
             # self.soups.append(BeautifulSoup(response.text, "lxml"))
             
             loop = asyncio.get_event_loop()
-            loop.run_until_complete(text = make_request(google_url_pageN))
+            loop.run_until_complete(self.make_request(google_url_pageN))
             # text = self.make_request(google_url_pageN)
-            self.soups.append(BeautifulSoup(text, "lxml"))
+            self.soups.append(BeautifulSoup(self.text, "lxml"))
                 
         return self.soups
 
