@@ -80,6 +80,41 @@ async def web_search(request):
 
     return web.json_response(json)
 
+async def scrapper_spinner(url, lang='pt'):
+
+    scrapper = Scrapper()
+    text = scrapper.scrap(url)
+
+    spinner = Spinner()
+    text = spinner.spin(text, lang)
+
+    return text
+    
+
+@routes.get("/blogger/{keywords}")
+async def blogger(request):
+
+    keywords = request.match_info['keywords']
+
+    country = 'br'
+
+    googler = Googler()
+    googler.google(keywords, country=country)
+    
+    tasks = [scrapper_spinner(url) for url in googler.urls]
+    await asyncio.gather(*tasks)
+
+    json = {}
+    # for i in range(len(googler.urls)):
+    for i in range(len(tasks)):
+        json[i] = {
+                'url': googler.urls[i],
+                'title': googler.titles[i],
+                'text': tasks[i].result()
+                }
+
+    return web.json_response(json)
+
 
 app = web.Application()
 app.add_routes(routes)
