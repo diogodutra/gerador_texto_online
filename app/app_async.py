@@ -109,7 +109,7 @@ async def blogger(request):
     for i in range(len(tasks)):
         if texts[i]: #ignore empty texts
             json[j] = {
-                    'url': googler.urls[i],
+                    # 'url': googler.urls[i],
                     'title': googler.titles[i],
                     'text': texts[i]
                     }
