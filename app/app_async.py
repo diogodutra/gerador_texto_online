@@ -103,17 +103,17 @@ async def blogger(request):
     
     tasks = [scrapper_spinner(url) for url in googler.urls]
     texts = await asyncio.gather(*tasks)
-    # loop = asyncio.get_event_loop()
-    # texts = loop.run_until_complete(asyncio.gather(*tasks))
 
     json = {}
-    # for i in range(len(googler.urls)):
+    j = 0
     for i in range(len(tasks)):
-        json[i] = {
-                'url': googler.urls[i],
-                'title': googler.titles[i],
-                'text': texts[i]
-                }
+        if texts[i]: #ignore empty texts
+            json[j] = {
+                    'url': googler.urls[i],
+                    'title': googler.titles[i],
+                    'text': texts[i]
+                    }
+            j = j + 1
 
     return web.json_response(json)
 

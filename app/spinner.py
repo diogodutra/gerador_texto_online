@@ -24,8 +24,14 @@ class Spinner():
 
     def spin(self, text, lang='pt'):
         self.text_old = text
-        self.lang = lang
-        self.text_new = self.paraphrase_with_translation()
+
+        if text: #not empty
+            self.lang = lang
+            self.text_new = self.paraphrase_with_translation()
+        
+        else: #is empty
+            self.text_new = ''
+        
         return self.text_new
 
 '''
