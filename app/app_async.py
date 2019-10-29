@@ -90,7 +90,7 @@ async def scrapper_spinner(url, lang='pt'):
 
     return text
     
-'''
+
 @routes.get("/blogger/{keywords}")
 async def blogger(request):
 
@@ -114,7 +114,7 @@ async def blogger(request):
                 }
 
     return web.json_response(json)
-'''
+
 
 app = web.Application()
 app.add_routes(routes)
