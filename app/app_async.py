@@ -109,8 +109,8 @@ async def blogger(request):
     for i in range(len(tasks)):
         json[i] = {
                 'url': googler.urls[i],
-                'title': googler.titles[i],
-                'text': tasks[i].result()
+                'title': googler.titles[i]
+                # 'text': tasks[i].result()
                 }
 
     return web.json_response(json)
