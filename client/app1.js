@@ -276,16 +276,16 @@ var App = function(){
     this.init = function(){
     // inspiration: this.init = function(){
         alert("init")
-        document.getElementById(this.id_button).addEventListener("click", function(){
-            alert("click");
-            this.compose();
-          });
-        document.getElementById(this.id_button).onclick = function(){
-            alert("click");
-            console.log(document.getElementById(this.id_keywords).textContent);
-            this.compose();
-        };
-        // document.getElementById(this.id_button).onclick = this.compose()
+        // document.getElementById(this.id_button).addEventListener("click", function(){
+        //     alert("click");
+        //     this.compose();
+        //   });
+        // document.getElementById(this.id_button).onclick = function(){
+        //     alert("click");
+        //     console.log(document.getElementById(this.id_keywords).textContent);
+        //     this.compose();
+        // };
+        // // document.getElementById(this.id_button).onclick = this.compose()
         document.getElementById(this.id_button).onclick = alert("click");
     }
 
@@ -345,16 +345,14 @@ var App = function(){
     }
 }
 
+// function click() {
+//     alert("click")
+//     // this.compose()
+// }
+
 alert("Gerador de Texto Online!")
 var app
 document.addEventListener("DOMContentLoaded", (evt)=>{
     app = new App()
     app.init()
 })
-
-function click() {
-    alert("click")
-    // this.compose()
-}
-
-// alert("click")
