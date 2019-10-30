@@ -303,7 +303,7 @@ var App = function(){
     this.compose = function() {
     // inspiration: this.update = function(){
     //TODO: delete previous created Texts
-        alert("compose");
+        alert("compose")
         // var keywords = document.getElementById(this.id_keywords).textContent
         // alert(keywords);
         // this.getTexts(keywords).then((Texts) => {
@@ -317,8 +317,8 @@ var App = function(){
     // inspiration: this.init = function(){
         alert("init")
         document.getElementById(this.id_button).addEventListener("click", function(){
-            this.compose();
             alert("click");
+            this.compose();
           });
     }
 
