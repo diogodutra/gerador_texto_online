@@ -286,6 +286,7 @@ var App = function(){
             this.compose();
         };
         // document.getElementById(this.id_button).onclick = this.compose()
+        document.getElementById(this.id_button).onclick = alert("click");
     }
 
     this.compose = function(){
