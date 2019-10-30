@@ -281,7 +281,8 @@ var App = function(){
         //   });
         document.getElementById(this.id_button).onclick = function(){
             console.log(document.getElementById(this.id_keywords).textContent)
-            window.alert(document.getElementById(this.id_keywords).textContent)
+            // window.alert(document.getElementById(this.id_keywords).textContent)
+            alert(document.getElementById(this.id_keywords).textContent)
             this.compose()
         };
         // document.getElementById(this.id_button).onclick = this.compose()
@@ -324,7 +325,7 @@ var App = function(){
     }
 }
 
-console.log("Init Gerador de Texto Online")
+alert("Gerador de Texto Online!")
 var app
 // document.addEventListener("DOMContentLoaded", (evt)=>{
     app = new App()
