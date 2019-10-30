@@ -276,17 +276,17 @@ var App = function(){
     this.init = function(){
     // inspiration: this.init = function(){
         alert("init")
-        // document.getElementById(this.id_button).addEventListener("click", function(){
-        //     alert("click");
-        //     this.compose();
-        //   });
+        document.getElementById(this.id_button).addEventListener("click", function(){
+            alert("click");
+            this.compose();
+          });
         // document.getElementById(this.id_button).onclick = function(){
         //     alert("click");
         //     console.log(document.getElementById(this.id_keywords).textContent);
         //     this.compose();
         // };
         // // document.getElementById(this.id_button).onclick = this.compose()
-        document.getElementById(this.id_button).onclick = alert("click");
+        // document.getElementById(this.id_button).onclick = alert("click");
     }
 
     this.compose = function(){
