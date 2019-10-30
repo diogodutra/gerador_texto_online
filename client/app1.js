@@ -275,10 +275,14 @@ var App = function(){
 
     this.init = function(){
     // inspiration: this.init = function(){
-        document.getElementById(this.id_button).addEventListener("click", function(){
+        // document.getElementById(this.id_button).addEventListener("click", function(){
+        //     window.alert(document.getElementById(this.id_keywords).textContent)
+        //     this.compose()
+        //   });
+        document.getElementById(this.id_button).onclick = function(){
             window.alert(document.getElementById(this.id_keywords).textContent)
             this.compose()
-          });
+        };
     }
 
     this.compose = function(){
