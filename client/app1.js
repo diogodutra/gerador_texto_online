@@ -280,7 +280,7 @@ var App = function(){
         //     this.compose()
         //   });
         document.getElementById(this.id_button).onclick = function(){
-            console.log("Geo location reset clicked")
+            console.log(document.getElementById(this.id_keywords).textContent)
             window.alert(document.getElementById(this.id_keywords).textContent)
             this.compose()
         };
@@ -324,6 +324,7 @@ var App = function(){
     }
 }
 
+console.log("Init Gerador de Texto Online")
 var app
 // document.addEventListener("DOMContentLoaded", (evt)=>{
     app = new App()
