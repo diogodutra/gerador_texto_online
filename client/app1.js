@@ -351,8 +351,7 @@
 //     app.init()
 // // })
 
-
-document.getElementById("button").addEventListener("click", function(){
+function click() {
     alert("click")
     // this.compose()
-});
+}
