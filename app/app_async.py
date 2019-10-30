@@ -36,11 +36,6 @@ async def get_planet_ephmeris(request):
     planet_data = tracker.calc_planet(planet_name)
     planet_data["geo_location"] = geo_location_data
     return web.json_response(planet_data)
-
-
-@routes.get('/')
-async def hello(request):
-    return web.FileResponse("./client/index.html")
     
 
 @routes.get("/spinner/{text}")
@@ -116,6 +111,11 @@ async def blogger(request):
             j = j + 1
 
     return web.json_response(json)
+
+
+@routes.get('/')
+async def hello(request):
+    return web.FileResponse("./client/index1.html")
 
 
 app = web.Application()
