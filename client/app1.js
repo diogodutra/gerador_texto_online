@@ -352,9 +352,9 @@ document.addEventListener("DOMContentLoaded", (evt)=>{
     app.init()
 })
 
-// function click() {
-//     alert("click")
-//     // this.compose()
-// }
+function click() {
+    alert("click")
+    // this.compose()
+}
 
 // alert("click")
