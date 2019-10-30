@@ -279,12 +279,12 @@ var App = function(){
         //     window.alert(document.getElementById(this.id_keywords).textContent)
         //     this.compose()
         //   });
-        // document.getElementById(this.id_button).onclick = function(){
-        //     window.alert(document.getElementById(this.id_keywords).textContent)
-            //         console.log("Geo location reset clicked")
-        //     this.compose()
-        // };
-        document.getElementById(this.id_button).onclick = this.compose()
+        document.getElementById(this.id_button).onclick = function(){
+            console.log("Geo location reset clicked")
+            window.alert(document.getElementById(this.id_keywords).textContent)
+            this.compose()
+        };
+        // document.getElementById(this.id_button).onclick = this.compose()
     }
 
     this.compose = function(){
@@ -325,7 +325,7 @@ var App = function(){
 }
 
 var app
-document.addEventListener("DOMContentLoaded", (evt)=>{
+// document.addEventListener("DOMContentLoaded", (evt)=>{
     app = new App()
     app.init()
-})
+// })
