@@ -273,35 +273,7 @@ var App = function(){
     this.id_keywords = "keywords"
     this.id_button = "button"
 
-    this.init = function(){
-    // inspiration: this.init = function(){
-        alert("init")
-        document.getElementById(this.id_button).addEventListener("click", function(){
-            alert("click");
-            this.compose();
-          });
-        // document.getElementById(this.id_button).onclick = function(){
-        //     alert("click");
-        //     console.log(document.getElementById(this.id_keywords).textContent);
-        //     this.compose();
-        // };
-        // // document.getElementById(this.id_button).onclick = this.compose()
-        // document.getElementById(this.id_button).onclick = alert("click");
-    }
-
-    this.compose = function(){
-    // inspiration: this.update = function(){
-    //TODO: delete previous created Texts
-        alert("compose")
-        var keywords = document.getElementById(this.id_keywords).textContent
-        this.getTexts(keywords).then((Texts) => {
-            // this.createTexts(Texts).then((Texts) => {
-                this.updateTexts(Texts)
-            // })
-        })
-    }
-
-    this.getTexts = function(keywords){
+    this.getTexts = function(keywords) {
     // inspiration: this.getPlanetEphemeris = function(planetName){
         alert("getTexts")
         return this.get(`/blogger/${keywords}`).then((req) => {
@@ -309,23 +281,7 @@ var App = function(){
         })
     }
 
-    this.get = function(url){
-    // inspiration: this.get = function(url){
-        alert("get")
-        var request = new XMLHttpRequest()
-        request.open("GET", url, true)
-        return new Promise((resolve, reject)=>{
-            request.send()
-            request.onreadystatechange = function(){
-                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                    resolve(this)
-                }
-            }
-            request.onerror = reject
-        })
-    }
-
-    this.updateTexts = function(Texts){
+    this.updateTexts = function(Texts) {
         // inspiration: this.updatePlanetDisplay = function(planetData){
         alert("updateTexts")
         var title = document.getElementById(this.id_title)
@@ -341,6 +297,44 @@ var App = function(){
             } else {
                 text.textContent = t.text
             }
+        })
+    }
+
+    this.compose = function() {
+    // inspiration: this.update = function(){
+    //TODO: delete previous created Texts
+        alert("compose");
+        var keywords = document.getElementById(this.id_keywords).textContent
+        alert(keywords);
+        this.getTexts(keywords).then((Texts) => {
+            // this.createTexts(Texts).then((Texts) => {
+                this.updateTexts(Texts)
+            // })
+        })
+    }
+
+    this.init = function() {
+    // inspiration: this.init = function(){
+        alert("init")
+        document.getElementById(this.id_button).addEventListener("click", function(){
+            alert("click");
+            this.compose();
+          });
+    }
+
+    this.get = function(url) {
+    // inspiration: this.get = function(url){
+        alert("get")
+        var request = new XMLHttpRequest()
+        request.open("GET", url, true)
+        return new Promise((resolve, reject)=>{
+            request.send()
+            request.onreadystatechange = function(){
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    resolve(this)
+                }
+            }
+            request.onerror = reject
         })
     }
 }
