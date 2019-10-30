@@ -279,10 +279,12 @@ var App = function(){
         //     window.alert(document.getElementById(this.id_keywords).textContent)
         //     this.compose()
         //   });
-        document.getElementById(this.id_button).onclick = function(){
-            window.alert(document.getElementById(this.id_keywords).textContent)
-            this.compose()
-        };
+        // document.getElementById(this.id_button).onclick = function(){
+        //     window.alert(document.getElementById(this.id_keywords).textContent)
+            //         console.log("Geo location reset clicked")
+        //     this.compose()
+        // };
+        document.getElementById(this.id_button).onclick = this.compose()
     }
 
     this.compose = function(){
