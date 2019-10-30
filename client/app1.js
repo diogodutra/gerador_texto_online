@@ -304,21 +304,21 @@ var App = function(){
     // inspiration: this.update = function(){
     //TODO: delete previous created Texts
         alert("compose");
-        var keywords = document.getElementById(this.id_keywords).textContent
-        alert(keywords);
-        this.getTexts(keywords).then((Texts) => {
-            // this.createTexts(Texts).then((Texts) => {
-                this.updateTexts(Texts)
-            // })
-        })
+        // var keywords = document.getElementById(this.id_keywords).textContent
+        // alert(keywords);
+        // this.getTexts(keywords).then((Texts) => {
+        //     // this.createTexts(Texts).then((Texts) => {
+        //         this.updateTexts(Texts)
+        //     // })
+        // })
     }
 
     this.init = function() {
     // inspiration: this.init = function(){
         alert("init")
         document.getElementById(this.id_button).addEventListener("click", function(){
-            alert("click");
             this.compose();
+            alert("click");
           });
     }
 
@@ -339,10 +339,6 @@ var App = function(){
     }
 }
 
-// function click() {
-//     alert("click")
-//     // this.compose()
-// }
 
 alert("Gerador de Texto Online!")
 var app
