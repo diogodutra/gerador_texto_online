@@ -300,7 +300,7 @@ var App = function(){
         })
     }
 
-    this.compose = function() {
+    this.blog = function() {
     // inspiration: this.update = function(){
     //TODO: delete previous created Texts
         alert("compose")
@@ -317,8 +317,8 @@ var App = function(){
     // inspiration: this.init = function(){
         alert("init")
         document.getElementById(this.id_button).addEventListener("click", function(){
-            alert("click");
-            this.compose();
+            alert("click")
+            this.blog()
           });
     }
 
