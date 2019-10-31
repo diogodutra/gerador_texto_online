@@ -320,7 +320,7 @@ var App = function(){
                     // alert("blog: ".concat(Texts))
                     alert("blog: ".concat(showProps(Texts, "Texts")))
                     this.updateTexts(Texts)
-                    this.updateTexts(Texts[0])
+                    this.updateTexts("Text[0]: ".concat(`${Texts[0]}`))
                 // })
             })
         }
