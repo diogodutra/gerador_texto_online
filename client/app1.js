@@ -283,11 +283,12 @@ var App = function(){
 
     this.updateTexts = function(Texts) {
         // inspiration: this.updatePlanetDisplay = function(planetData){
-        alert("updateTexts")
+        // alert("updateTexts")
+        alert("updateTexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
         // title.value = "Titulo 2"
         // text.value = "Texto 2"
-        document.getElementById(this.id_title).innerHTML = Texts[0].title
-        document.getElementById(this.id_text).innerHTML = Texts[0].text
+        document.getElementById(this.id_title).innerHTML = Texts[0].title.value
+        document.getElementById(this.id_text).innerHTML = Texts[0].text.value
         // alert("for: ".concat(showProps(Texts[0], "Texts")))
         // Texts.forEach((t)=>{
         // for (var i in Texts) {
