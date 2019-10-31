@@ -285,6 +285,7 @@ var App = function(){
 
     this.updateTexts = function(Texts) {
         // inspiration: this.updatePlanetDisplay = function(planetData){
+        alert("updateTexts.length: ".concat(showProps(Texts.keys.length, "Texts.length")))
         alert("updateTexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
         // document.getElementById(app.id_title).innerHTML = Texts[0].title
         // document.getElementById(app.id_text).innerHTML = Texts[0].text
@@ -388,9 +389,6 @@ alert(Texts[0].title)
     
 this.createText = function(Texts){
     var div_base = document.getElementById("texts")
-    // var table = document.createElement("table")
-    // var header = document.createElement("tr")
-    // var headerNames = ["Name", "Azimuth", "Altitude"]
     Texts.forEach((t, idx)=>{
         var new_div = document.createElement("div")
         var new_title = document.createElement("h1")
@@ -410,3 +408,4 @@ this.createText = function(Texts){
 }
 
 // createText(Texts)
+// alert("Texts.length: ".concat(Texts.length))
