@@ -284,6 +284,8 @@ var App = function(){
     this.updateTexts = function(Texts) {
         // inspiration: this.updatePlanetDisplay = function(planetData){
         alert("updateTexts")
+        title.value = "Titulo 2"
+        text.value = "Texto 2"
         var title = document.getElementById(this.id_title)
         var text = document.getElementById(this.id_text)
         Texts.forEach((t)=>{
@@ -297,6 +299,8 @@ var App = function(){
             } else {
                 text.value = t.text
             }
+            title.value = "Titulo 3"
+            text.value = "Texto 3"
         })
     }
 
@@ -308,6 +312,7 @@ var App = function(){
         if (keywords) {
             this.getTexts(keywords).then((Texts) => {
                 // this.createTexts(Texts).then((Texts) => {
+                    alert("blog: ".concat(Texts))
                     this.updateTexts(Texts)
                 // })
             })
