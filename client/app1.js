@@ -274,6 +274,7 @@ var App = function(){
     this.id_button = "button"
     this.id_title = "title"
     this.id_text = "text"
+    this.id_app = "app"
 
     this.getTexts = function(keywords) {
     // inspiration: this.getPlanetEphemeris = function(planetName){
@@ -289,11 +290,12 @@ var App = function(){
         alert("updateTexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
         // document.getElementById(app.id_title).innerHTML = Texts[0].title
         // document.getElementById(app.id_text).innerHTML = Texts[0].text
+        var div_base = document.getElementById(this.id_app)
         // Texts.forEach((t, idx)=>{
         for (var idx in Texts) {
             alert("for: ".concat(showProps(Texts[idx], "Texts")))
 
-            // create DOM for one text 
+            // create DOM for one text
             var new_div = document.createElement("div")
             var new_title = document.createElement("h1")
             var new_text = document.createElement("p")
@@ -305,9 +307,9 @@ var App = function(){
             new_div.appendChild(new_text)
             div_base.appendChild(new_div)
             
-            new_div.setAttribute("id", "div_".concat(idx))
-            new_div.setAttribute("id", "title_".concat(idx))
-            new_div.setAttribute("id", "text_".concat(idx))
+            // new_div.setAttribute("id", "div_".concat(idx))
+            // new_div.setAttribute("id", "title_".concat(idx))
+            // new_div.setAttribute("id", "text_".concat(idx))
 
             // fill new DOM with content
             new_title.innerHTML = Texts[idx].title
