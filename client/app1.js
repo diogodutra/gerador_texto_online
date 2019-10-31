@@ -285,12 +285,11 @@ var App = function(){
 
     this.updateTexts = function(Texts) {
         // inspiration: this.updatePlanetDisplay = function(planetData){
-        // alert("updateTexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
-        document.getElementById(app.id_title).innerHTML = Texts[0].title
-        document.getElementById(app.id_text).innerHTML = Texts[0].text
-        Texts.forEach((t)=>{
-        // for (var i in Texts) {
-            // alert("for: ".concat(showProps(Texts[0], "Texts")))
+        alert("updateTexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
+        // document.getElementById(app.id_title).innerHTML = Texts[0].title
+        // document.getElementById(app.id_text).innerHTML = Texts[0].text
+        Texts.forEach((t, idx)=>{
+            alert("for: ".concat(showProps(t, "Texts")))
 
             // create DOM for one text 
             var new_div = document.createElement("div")
@@ -314,19 +313,6 @@ var App = function(){
 
             // document.getElementById(app.id_title).innerHTML = t.title
             // document.getElementById(app.id_text).innerHTML = t.text
-
-            // var new_title = Texts[i].title
-            // var new_text = Texts[i].text
-            // if (isNaN(t.title)) {
-                // title.value = ""
-            // } else {
-                // title.value = t.title
-            // }
-            // if (isNaN(t.text)) {
-                // text.value = ""
-            // } else {
-                // text.value = t.text
-            // }
         })
     }
 
@@ -337,10 +323,7 @@ var App = function(){
         var keywords = document.getElementById(this.id_keywords).value
         if (keywords) {
             this.getTexts(keywords).then((Texts) => {
-                // this.createTexts(Texts).then((Texts) => {
-                    // alert("STexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
-                    this.updateTexts(Texts)
-                // })
+                this.updateTexts(Texts)
             })
         }
     }
