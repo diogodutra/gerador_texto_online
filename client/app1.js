@@ -304,8 +304,8 @@ var App = function(){
             // } else {
                 // text.value = t.text
             // }
-            title.value = Texts[0].title
-            text.value = Texts[0].text
+            title.innerHTML  = Texts[0].title
+            text.innerHTML  = Texts[0].text
         // }//)
     }
 
@@ -317,10 +317,10 @@ var App = function(){
         if (keywords) {
             this.getTexts(keywords).then((Texts) => {
                 // this.createTexts(Texts).then((Texts) => {
-                    alert("Texts: ".concat(Texts))
-                    alert("STexts: ".concat(showProps(Texts, "Texts")))
+                    // alert("Texts: ".concat(Texts))
+                    // alert("STexts: ".concat(showProps(Texts, "Texts")))
                     alert("STexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
-                    alert("$Texts[0]: ".concat(`${Texts[0]}`))
+                    // alert("$Texts[0]: ".concat(`${Texts[0]}`))
                     this.updateTexts(Texts)
                 // })
             })
