@@ -275,7 +275,7 @@ var App = function(){
 
     this.getTexts = function(keywords) {
     // inspiration: this.getPlanetEphemeris = function(planetName){
-        alert("getTexts")
+        alert("getTexts: ".concat(keywords))
         return this.get(`/blogger/${keywords}`).then((req) => {
             return JSON.parse(req.response)
         })
@@ -287,15 +287,15 @@ var App = function(){
         var title = document.getElementById(this.id_title)
         var text = document.getElementById(this.id_text)
         Texts.forEach((t)=>{
-            if (isNaN(t.title)){
-                title.textContent = ""
+            if (isNaN(t.title)) {
+                title.value = ""
             } else {
-                title.textContent = t.title
+                title.value = t.title
             }
-            if (isNaN(t.text)){
-                text.textContent = ""
+            if (isNaN(t.text)) {
+                text.value = ""
             } else {
-                text.textContent = t.text
+                text.value = t.text
             }
         })
     }
@@ -303,22 +303,21 @@ var App = function(){
     this.blog = function() {
     // inspiration: this.update = function(){
     //TODO: delete previous created Texts
-        alert("compose")
-        // var keywords = document.getElementById(this.id_keywords).textContent
-        // alert(keywords);
-        // this.getTexts(keywords).then((Texts) => {
-        //     // this.createTexts(Texts).then((Texts) => {
-        //         this.updateTexts(Texts)
-        //     // })
-        // })
+    //TODO: create N new texts and titles
+        var keywords = document.getElementById(this.id_keywords).value
+        if (keywords) {
+            this.getTexts(keywords).then((Texts) => {
+                // this.createTexts(Texts).then((Texts) => {
+                    this.updateTexts(Texts)
+                // })
+            })
+        }
     }
 
     this.init = function() {
     // inspiration: this.init = function(){
-        alert("init")
         document.getElementById(this.id_button).addEventListener("click", function(){
-            alert("click")
-            this.blog()
+            app.blog()
           });
     }
 
@@ -340,7 +339,7 @@ var App = function(){
 }
 
 
-alert("Gerador de Texto Online!")
+// alert("Gerador de Texto Online!")
 var app
 document.addEventListener("DOMContentLoaded", (evt)=>{
     app = new App()
