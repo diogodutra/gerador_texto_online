@@ -319,8 +319,8 @@ var App = function(){
                 // this.createTexts(Texts).then((Texts) => {
                     // alert("blog: ".concat(Texts))
                     alert("blog: ".concat(showProps(Texts, "Texts")))
+                    alert("Text[0]: ".concat(`${Texts[0]}`))
                     this.updateTexts(Texts)
-                    this.updateTexts("Text[0]: ".concat(`${Texts[0]}`))
                 // })
             })
         }
