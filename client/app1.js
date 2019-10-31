@@ -288,8 +288,8 @@ var App = function(){
         alert("updateTexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
         document.getElementById(app.id_title).innerHTML = "Titulo 2"
         document.getElementById(app.id_text).innerHTML = "Texto 2"
-        // document.getElementById(this.id_title).innerHTML = Texts[0].title.value
-        // document.getElementById(this.id_text).innerHTML = Texts[0].text.value
+        document.getElementById(app.id_title).innerHTML = Texts[0].title
+        document.getElementById(app.id_text).innerHTML = Texts[0].text
         Texts.forEach((t)=>{
         // for (var i in Texts) {
             alert("for: ".concat(showProps(Texts[0], "Texts")))
