@@ -289,16 +289,17 @@ var App = function(){
         alert("updateTexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
         // document.getElementById(app.id_title).innerHTML = Texts[0].title
         // document.getElementById(app.id_text).innerHTML = Texts[0].text
-        Texts.forEach((t, idx)=>{
-            alert("for: ".concat(showProps(t, "Texts")))
+        // Texts.forEach((t, idx)=>{
+        for (var idx in Texts) {
+            alert("for: ".concat(showProps(Texts[idx], "Texts")))
 
             // create DOM for one text 
             var new_div = document.createElement("div")
             var new_title = document.createElement("h1")
             var new_text = document.createElement("p")
 
-            new_title.innerHTML = t.title
-            new_text.innerHTML = t.text
+            // new_title.innerHTML = Texts[idx].title
+            // new_text.innerHTML = Texts[idx].text
 
             new_div.appendChild(new_title)
             new_div.appendChild(new_text)
@@ -309,8 +310,8 @@ var App = function(){
             new_div.setAttribute("id", "text_".concat(idx))
 
             // fill new DOM with content
-            new_title.innerHTML = t.title
-            new_text.innerHTML = t.text
+            new_title.innerHTML = Texts[idx].title
+            new_text.innerHTML = Texts[idx].text
 
             // document.getElementById(app.id_title).innerHTML = t.title
             // document.getElementById(app.id_text).innerHTML = t.text
