@@ -285,7 +285,7 @@ var App = function(){
 
     this.updateTexts = function(Texts) {
         // inspiration: this.updatePlanetDisplay = function(planetData){
-        alert("updateTexts.length: ".concat(showProps(Texts.keys.length, "Texts.length")))
+        // alert("updateTexts.length: ".concat(showProps(Texts.keys.length, "Texts.length")))
         alert("updateTexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
         // document.getElementById(app.id_title).innerHTML = Texts[0].title
         // document.getElementById(app.id_text).innerHTML = Texts[0].text
