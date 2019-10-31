@@ -315,7 +315,7 @@ var App = function(){
 
             // document.getElementById(app.id_title).innerHTML = t.title
             // document.getElementById(app.id_text).innerHTML = t.text
-        })
+        }//)
     }
 
     this.blog = function() {
