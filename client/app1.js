@@ -272,6 +272,8 @@ var App = function(){
     this.id_text = "text"
     this.id_keywords = "keywords"
     this.id_button = "button"
+    this.id_title = "title"
+    this.id_text = "text"
 
     this.getTexts = function(keywords) {
     // inspiration: this.getPlanetEphemeris = function(planetName){
@@ -284,15 +286,15 @@ var App = function(){
     this.updateTexts = function(Texts) {
         // inspiration: this.updatePlanetDisplay = function(planetData){
         alert("updateTexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
-        document.getElementById(this.id_title).innerHTML = "Titulo 2"
-        document.getElementById(this.id_text).innerHTML = "Texto 2"
+        document.getElementById(app.id_title).innerHTML = "Titulo 2"
+        document.getElementById(app.id_text).innerHTML = "Texto 2"
         // document.getElementById(this.id_title).innerHTML = Texts[0].title.value
         // document.getElementById(this.id_text).innerHTML = Texts[0].text.value
         Texts.forEach((t)=>{
         // for (var i in Texts) {
             alert("for: ".concat(showProps(Texts[0], "Texts")))
-            document.getElementById(this.id_title).innerHTML = t.title
-            document.getElementById(this.id_text).innerHTML = t.text
+            document.getElementById(app.id_title).innerHTML = t.title
+            document.getElementById(app.id_text).innerHTML = t.text
             // document.getElementById(this.id_title).innerHTML = Texts[0].title
             // document.getElementById(this.id_text).innerHTML = Texts[0].text
             // var new_title = Texts[i].title
@@ -371,3 +373,4 @@ document.addEventListener("DOMContentLoaded", (evt)=>{
     app = new App()
     app.init()
 })
+// document.getElementById("title").innerHTML = "Titulo 2"
