@@ -290,6 +290,7 @@ var App = function(){
         var text = document.getElementById(this.id_text)
         // Texts.forEach((t)=>{
         for (var i in Texts) {
+            alert("for: ".concat(showProps(Texts[i], "Texts")))
             // var new_title = Texts[i].title
             // var new_text = Texts[i].text
             // if (isNaN(t.title)) {
