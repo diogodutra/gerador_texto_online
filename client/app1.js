@@ -312,7 +312,8 @@ var App = function(){
         if (keywords) {
             this.getTexts(keywords).then((Texts) => {
                 // this.createTexts(Texts).then((Texts) => {
-                    alert("blog: ".concat(Texts))
+                    // alert("blog: ".concat(Texts))
+                    alert("blog: ".concat(showProps(Texts, "Texts")))
                     this.updateTexts(Texts)
                 // })
             })
@@ -343,6 +344,16 @@ var App = function(){
     }
 }
 
+function showProps(obj, objName) {
+    var result = ``;
+    for (var i in obj) {
+      // obj.hasOwnProperty() is used to filter out properties from the object's prototype chain
+      if (obj.hasOwnProperty(i)) {
+        result += `${objName}.${i} = ${obj[i]}\n`;
+      }
+    }
+    return result;
+}
 
 // alert("Gerador de Texto Online!")
 var app
