@@ -283,16 +283,18 @@ var App = function(){
 
     this.updateTexts = function(Texts) {
         // inspiration: this.updatePlanetDisplay = function(planetData){
-        // alert("updateTexts")
         alert("updateTexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
-        // title.value = "Titulo 2"
-        // text.value = "Texto 2"
-        document.getElementById(this.id_title).innerHTML = Texts[0].title.value
-        document.getElementById(this.id_text).innerHTML = Texts[0].text.value
-        // alert("for: ".concat(showProps(Texts[0], "Texts")))
-        // Texts.forEach((t)=>{
+        document.getElementById(this.id_title).innerHTML = "Titulo 2"
+        document.getElementById(this.id_text).innerHTML = "Texto 2"
+        // document.getElementById(this.id_title).innerHTML = Texts[0].title.value
+        // document.getElementById(this.id_text).innerHTML = Texts[0].text.value
+        Texts.forEach((t)=>{
         // for (var i in Texts) {
             alert("for: ".concat(showProps(Texts[0], "Texts")))
+            document.getElementById(this.id_title).innerHTML = t.title
+            document.getElementById(this.id_text).innerHTML = t.text
+            // document.getElementById(this.id_title).innerHTML = Texts[0].title
+            // document.getElementById(this.id_text).innerHTML = Texts[0].text
             // var new_title = Texts[i].title
             // var new_text = Texts[i].text
             // if (isNaN(t.title)) {
@@ -307,7 +309,7 @@ var App = function(){
             // }
             // title.innerHTML  = Texts[i].title
             // text.innerHTML  = Texts[i].text
-        // }//)
+        })
     }
 
     this.blog = function() {
