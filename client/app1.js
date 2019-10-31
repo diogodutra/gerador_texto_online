@@ -285,18 +285,36 @@ var App = function(){
 
     this.updateTexts = function(Texts) {
         // inspiration: this.updatePlanetDisplay = function(planetData){
-        alert("updateTexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
-        document.getElementById(app.id_title).innerHTML = "Titulo 2"
-        document.getElementById(app.id_text).innerHTML = "Texto 2"
+        // alert("updateTexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
         document.getElementById(app.id_title).innerHTML = Texts[0].title
         document.getElementById(app.id_text).innerHTML = Texts[0].text
         Texts.forEach((t)=>{
         // for (var i in Texts) {
-            alert("for: ".concat(showProps(Texts[0], "Texts")))
-            document.getElementById(app.id_title).innerHTML = t.title
-            document.getElementById(app.id_text).innerHTML = t.text
-            // document.getElementById(this.id_title).innerHTML = Texts[0].title
-            // document.getElementById(this.id_text).innerHTML = Texts[0].text
+            // alert("for: ".concat(showProps(Texts[0], "Texts")))
+
+            // create DOM for one text 
+            var new_div = document.createElement("div")
+            var new_title = document.createElement("h1")
+            var new_text = document.createElement("p")
+
+            new_title.innerHTML = t.title
+            new_text.innerHTML = t.text
+
+            new_div.appendChild(new_title)
+            new_div.appendChild(new_text)
+            div_base.appendChild(new_div)
+            
+            new_div.setAttribute("id", "div_".concat(idx))
+            new_div.setAttribute("id", "title_".concat(idx))
+            new_div.setAttribute("id", "text_".concat(idx))
+
+            // fill new DOM with content
+            new_title.innerHTML = t.title
+            new_text.innerHTML = t.text
+
+            // document.getElementById(app.id_title).innerHTML = t.title
+            // document.getElementById(app.id_text).innerHTML = t.text
+
             // var new_title = Texts[i].title
             // var new_text = Texts[i].text
             // if (isNaN(t.title)) {
@@ -309,8 +327,6 @@ var App = function(){
             // } else {
                 // text.value = t.text
             // }
-            // title.innerHTML  = Texts[i].title
-            // text.innerHTML  = Texts[i].text
         })
     }
 
@@ -322,10 +338,7 @@ var App = function(){
         if (keywords) {
             this.getTexts(keywords).then((Texts) => {
                 // this.createTexts(Texts).then((Texts) => {
-                    // alert("Texts: ".concat(Texts))
-                    // alert("STexts: ".concat(showProps(Texts, "Texts")))
-                    alert("STexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
-                    // alert("$Texts[0]: ".concat(`${Texts[0]}`))
+                    // alert("STexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
                     this.updateTexts(Texts)
                 // })
             })
@@ -374,3 +387,43 @@ document.addEventListener("DOMContentLoaded", (evt)=>{
     app.init()
 })
 // document.getElementById("title").innerHTML = "Titulo 2"
+
+var Texts = []
+// alert("Gerador de Texto Online!")
+Texts[0] = []
+Texts[1] = []
+Texts[2] = []
+Texts[0].title = "Title0"
+Texts[1].title = "Title1"
+Texts[2].title = "Title2"
+Texts[0].text = "Text0"
+Texts[1].text = "Text1"
+Texts[2].text = "Text2"
+
+alert(Texts[0].title)
+
+    
+this.createText = function(Texts){
+    var div_base = document.getElementById("texts")
+    // var table = document.createElement("table")
+    // var header = document.createElement("tr")
+    // var headerNames = ["Name", "Azimuth", "Altitude"]
+    Texts.forEach((t, idx)=>{
+        var new_div = document.createElement("div")
+        var new_title = document.createElement("h1")
+        var new_text = document.createElement("p")
+
+        new_title.innerHTML = t.title
+        new_text.innerHTML = t.text
+
+        new_div.appendChild(new_title)
+        new_div.appendChild(new_text)
+        div_base.appendChild(new_div)
+        
+        new_div.setAttribute("id", "div_".concat(idx))
+        new_div.setAttribute("id", "title_".concat(idx))
+        new_div.setAttribute("id", "text_".concat(idx))
+    })
+}
+
+// createText(Texts)
