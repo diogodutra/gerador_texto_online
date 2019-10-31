@@ -288,20 +288,23 @@ var App = function(){
         text.value = "Texto 2"
         var title = document.getElementById(this.id_title)
         var text = document.getElementById(this.id_text)
-        Texts.forEach((t)=>{
-            if (isNaN(t.title)) {
-                title.value = ""
-            } else {
-                title.value = t.title
-            }
-            if (isNaN(t.text)) {
-                text.value = ""
-            } else {
-                text.value = t.text
-            }
-            title.value = "Titulo 3"
-            text.value = "Texto 3"
-        })
+        // Texts.forEach((t)=>{
+        for (var i in Texts) {
+            // var new_title = Texts[i].title
+            // var new_text = Texts[i].text
+            // if (isNaN(t.title)) {
+                // title.value = ""
+            // } else {
+                // title.value = t.title
+            // }
+            // if (isNaN(t.text)) {
+                // text.value = ""
+            // } else {
+                // text.value = t.text
+            // }
+            title.value = Texts[i].title
+            text.value = Texts[i].text
+        }//)
     }
 
     this.blog = function() {
