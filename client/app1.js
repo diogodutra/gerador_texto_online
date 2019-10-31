@@ -317,10 +317,10 @@ var App = function(){
         if (keywords) {
             this.getTexts(keywords).then((Texts) => {
                 // this.createTexts(Texts).then((Texts) => {
-                    // alert("blog: ".concat(Texts))
-                    alert("blog: ".concat(showProps(Texts, "Texts")))
-                    alert("blog: ".concat(showProps(Texts[0], "Texts[0]")))
-                    // alert("Text[0]: ".concat(`${Texts[0]}`))
+                    alert("Texts: ".concat(Texts))
+                    alert("STexts: ".concat(showProps(Texts, "Texts")))
+                    alert("STexts[0]: ".concat(showProps(Texts[0], "Texts[0]")))
+                    alert("$Texts[0]: ".concat(`${Texts[0]}`))
                     this.updateTexts(Texts)
                 // })
             })
