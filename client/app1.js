@@ -288,6 +288,7 @@ var App = function(){
         text.value = "Texto 2"
         var title = document.getElementById(this.id_title)
         var text = document.getElementById(this.id_text)
+        // alert("for: ".concat(showProps(Texts[0], "Texts")))
         // Texts.forEach((t)=>{
         for (var i in Texts) {
             alert("for: ".concat(showProps(Texts[i], "Texts")))
@@ -319,6 +320,7 @@ var App = function(){
                     // alert("blog: ".concat(Texts))
                     alert("blog: ".concat(showProps(Texts, "Texts")))
                     this.updateTexts(Texts)
+                    this.updateTexts(Texts[0])
                 // })
             })
         }
