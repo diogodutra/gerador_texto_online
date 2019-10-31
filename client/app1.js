@@ -279,7 +279,7 @@ var App = function(){
 
     this.getTexts = function(keywords) {
     // inspiration: this.getPlanetEphemeris = function(planetName){
-        alert("getTexts: ".concat(keywords))
+        // alert("getTexts: ".concat(keywords))
         return this.get(`/blogger/${keywords}`).then((req) => {
             return JSON.parse(req.response)
         })
@@ -289,9 +289,13 @@ var App = function(){
         // inspiration: this.updatePlanetDisplay = function(planetData){
         // alert("updateTexts.length: ".concat(showProps(Texts.keys.length, "Texts.length")))
         var div_base = document.getElementById(this.id_results)
-        // Texts.forEach((t, idx)=>{
         for (var idx in Texts) {
-            alert("for: ".concat(showProps(Texts[idx], "Texts")))
+            // alert("for: ".concat(showProps(Texts[idx], "Texts")))
+
+            // remove all the previous results
+            while (div_base.firstChild) {
+                div_base.removeChild(div_base.firstChild);
+            }
 
             // create DOM for one text
             var new_div = document.createElement("div")
@@ -309,16 +313,11 @@ var App = function(){
             // fill new DOM with content
             new_title.innerHTML = Texts[idx].title
             new_text.innerHTML = Texts[idx].text
-
-            // document.getElementById(app.id_title).innerHTML = t.title
-            // document.getElementById(app.id_text).innerHTML = t.text
-        }//)
+        }
     }
 
     this.blog = function() {
     // inspiration: this.update = function(){
-    //TODO: delete previous created Texts
-    //TODO: create N new texts and titles
         var keywords = document.getElementById(this.id_keywords).value
         if (keywords) {
             this.getTexts(keywords).then((Texts) => {
@@ -336,7 +335,6 @@ var App = function(){
 
     this.get = function(url) {
     // inspiration: this.get = function(url){
-        alert("get")
         var request = new XMLHttpRequest()
         request.open("GET", url, true)
         return new Promise((resolve, reject)=>{
@@ -368,42 +366,41 @@ document.addEventListener("DOMContentLoaded", (evt)=>{
     app = new App()
     app.init()
 })
-// document.getElementById("title").innerHTML = "Titulo 2"
 
-var Texts = []
-// alert("Gerador de Texto Online!")
-Texts[0] = []
-Texts[1] = []
-Texts[2] = []
-Texts[0].title = "Title0"
-Texts[1].title = "Title1"
-Texts[2].title = "Title2"
-Texts[0].text = "Text0"
-Texts[1].text = "Text1"
-Texts[2].text = "Text2"
+// var Texts = []
+// // alert("Gerador de Texto Online!")
+// Texts[0] = []
+// Texts[1] = []
+// Texts[2] = []
+// Texts[0].title = "Title0"
+// Texts[1].title = "Title1"
+// Texts[2].title = "Title2"
+// Texts[0].text = "Text0"
+// Texts[1].text = "Text1"
+// Texts[2].text = "Text2"
 
-alert(Texts[0].title)
+// alert(Texts[0].title)
 
     
-this.createText = function(Texts){
-    var div_base = document.getElementById("texts")
-    Texts.forEach((t, idx)=>{
-        var new_div = document.createElement("div")
-        var new_title = document.createElement("h1")
-        var new_text = document.createElement("p")
+// this.createText = function(Texts){
+//     var div_base = document.getElementById("texts")
+//     Texts.forEach((t, idx)=>{
+//         var new_div = document.createElement("div")
+//         var new_title = document.createElement("h1")
+//         var new_text = document.createElement("p")
 
-        new_title.innerHTML = t.title
-        new_text.innerHTML = t.text
+//         new_title.innerHTML = t.title
+//         new_text.innerHTML = t.text
 
-        new_div.appendChild(new_title)
-        new_div.appendChild(new_text)
-        div_base.appendChild(new_div)
+//         new_div.appendChild(new_title)
+//         new_div.appendChild(new_text)
+//         div_base.appendChild(new_div)
         
-        new_div.setAttribute("id", "div_".concat(idx))
-        new_div.setAttribute("id", "title_".concat(idx))
-        new_div.setAttribute("id", "text_".concat(idx))
-    })
-}
+//         new_div.setAttribute("id", "div_".concat(idx))
+//         new_div.setAttribute("id", "title_".concat(idx))
+//         new_div.setAttribute("id", "text_".concat(idx))
+//     })
+// }
 
 // createText(Texts)
 // alert("Texts.length: ".concat(Texts.length))
