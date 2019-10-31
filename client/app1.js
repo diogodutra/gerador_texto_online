@@ -290,8 +290,8 @@ var App = function(){
         var text = document.getElementById(this.id_text)
         // alert("for: ".concat(showProps(Texts[0], "Texts")))
         // Texts.forEach((t)=>{
-        for (var i in Texts) {
-            alert("for: ".concat(showProps(Texts[i], "Texts")))
+        // for (var i in Texts) {
+            alert("for: ".concat(showProps(Texts[0], "Texts")))
             // var new_title = Texts[i].title
             // var new_text = Texts[i].text
             // if (isNaN(t.title)) {
@@ -304,9 +304,9 @@ var App = function(){
             // } else {
                 // text.value = t.text
             // }
-            title.value = Texts[i].title
-            text.value = Texts[i].text
-        }//)
+            title.value = Texts[0].title
+            text.value = Texts[0].text
+        // }//)
     }
 
     this.blog = function() {
