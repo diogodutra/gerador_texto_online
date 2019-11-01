@@ -136,6 +136,8 @@ function createText(Texts) {
         new_div.setAttribute("id", "div_".concat(idx))
         new_div.setAttribute("id", "title_".concat(idx))
         new_div.setAttribute("id", "text_".concat(idx))
+
+        new_div.setAttribute("class", "text")
     })
 }
 
@@ -158,4 +160,5 @@ document.addEventListener("DOMContentLoaded", (evt)=>{
 // Texts[2].text = "Text2"
 
 // createText(Texts)
+
 // alert("Texts.length: ".concat(Texts.length))
