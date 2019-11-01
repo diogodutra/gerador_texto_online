@@ -53,7 +53,8 @@ header .navbar {
 }
 
 header .navbar .nav-link {
-  padding: 1.7rem 1rem;
+  padding: 1rem 1rem;
+  margin: 0 1.5rem 0 .2rem;
   outline: none !important;
 }
 
@@ -130,8 +131,8 @@ header .navbar.navbar-light .nav-link.active {
 .site-hero {
   background-size: cover;
   background-position: center center;
-  min-height: 750px;
-  height: 100vh;
+  min-height: 350px;
+  height: 30vh;
 }
 
 .site-hero > .container {
@@ -160,8 +161,8 @@ header .navbar.navbar-light .nav-link.active {
 }
 
 .site-hero .site-hero-inner {
-  min-height: 750px;
-  height: 100vh;
+  min-height: 400px;
+  height: 40vh;
 }
 
 .site-hero-innerpage, .site-hero-innerpage .site-hero-inner {
@@ -170,7 +171,16 @@ header .navbar.navbar-light .nav-link.active {
 }
 
 .site-section {
-  padding: 7em 0;
+  padding: 5em 0;
+}
+
+.search-input-dd {
+  width: 300px;
+  height: 75px;
+  border-radius: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: none;
 }
 
 #search-form .search-input {
@@ -361,6 +371,7 @@ header .navbar.navbar-light .nav-link.active {
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
   border-radius: 0;
+  height: 80px;
 }
 
 .btn:focus, .btn:active, .form-control:focus, .form-control:active {
@@ -1033,7 +1044,7 @@ textarea.form-control {
 }
 
 .site-footer {
-  padding: 5em 0;
+  padding: 1em 0;
   background: #f2f2f2;
   font-size: 16px;
 }
