@@ -71,9 +71,24 @@ var App = function(){
 
     this.init = function() {
     // inspiration: this.init = function(){
+
+        // button click
         document.getElementById(this.id_button).addEventListener("click", function(){
             app.blog()
           });
+
+        // key enter        
+        document.getElementById(app.id_keywords).addEventListener("keyup", function(event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+
+                // Cancel the default action, if needed
+                // event.preventDefault();
+
+                // Trigger the button element with a click
+                document.getElementById(app.id_button).click();
+            }
+        });
     }
 
     this.get = function(url) {
