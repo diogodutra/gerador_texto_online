@@ -148,17 +148,17 @@ document.addEventListener("DOMContentLoaded", (evt)=>{
     app.init()
 })
 
-var Texts = []
-Texts[0] = []
-Texts[1] = []
-Texts[2] = []
-Texts[0].title = "Title0"
-Texts[1].title = "Title1"
-Texts[2].title = "Title2"
-Texts[0].text = "Text0"
-Texts[1].text = "Text1"
-Texts[2].text = "Text2"
+// var Texts = []
+// Texts[0] = []
+// Texts[1] = []
+// Texts[2] = []
+// Texts[0].title = "Title0"
+// Texts[1].title = "Title1"
+// Texts[2].title = "Title2"
+// Texts[0].text = "Text0"
+// Texts[1].text = "Text1"
+// Texts[2].text = "Text2"
 
-createText(Texts)
+// createText(Texts)
 
 // alert("Texts.length: ".concat(Texts.length))
