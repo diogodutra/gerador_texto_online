@@ -128,16 +128,16 @@ function createText(Texts) {
 
         new_title.innerHTML = t.title
         new_text.innerHTML = t.text
-
-        new_div.appendChild(new_title)
-        new_div.appendChild(new_text)
-        div_base.appendChild(new_div)
         
         new_div.setAttribute("id", "div_".concat(idx))
         new_div.setAttribute("id", "title_".concat(idx))
         new_div.setAttribute("id", "text_".concat(idx))
 
         new_div.setAttribute("class", "img-bg")
+
+        new_div.appendChild(new_title)
+        new_div.appendChild(new_text)
+        div_base.appendChild(new_div)
     })
 }
 
@@ -160,5 +160,4 @@ document.addEventListener("DOMContentLoaded", (evt)=>{
 // Texts[2].text = "Text2"
 
 // createText(Texts)
-
 // alert("Texts.length: ".concat(Texts.length))
