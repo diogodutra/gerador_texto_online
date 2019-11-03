@@ -61,7 +61,7 @@ class Scrapper():
                     if not is_repeated:
                         paragraphs.append(paragraph)
 
-            self.text = '\n'.join(paragraphs)      
+            self.text = '\n\r'.join(paragraphs)      
 
             if len(self.text)==0:
                 print(f'Text not found in {self.url}.')
