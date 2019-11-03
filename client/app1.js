@@ -55,6 +55,11 @@ var App = function(){
                     app.updateTexts(Texts)
                 } else {
                     // alert("get finished with empty result.")
+                    // empty result
+                    if (search_page < 10) {
+                        search_page += 1
+                        app.blog_more()
+                    }
                 }
             }, reason => {
               console.error(reason); // Error!
@@ -114,7 +119,8 @@ var App = function(){
                 if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                     resolve(this)
                 } else {
-                    alert("Could not get results. Try again with other keywords.")
+                    // alert("This request got non-valid response.")
+                    // ignore
                 }
             }
             request.onerror = reject

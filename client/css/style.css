@@ -190,9 +190,8 @@ select{
   height: 60px;
   margin-top: 30px;
   margin-bottom: 80px;
-  padding-bottom: 20px;
   display: block;
-  display: none;
+  /* display: none; */
   border-radius: 30px;
   border-color: transparent;
   color: white;
