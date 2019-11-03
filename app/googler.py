@@ -30,14 +30,17 @@ class Googler():
 
         google_url += '&start=' + page * max_results
         
-        max_pages = max_results // 10
-        for result_page in range(max_pages):
-            #BUG: deal error when Google has less results than max_results
-            #BUG: deal error when Google blocks robots
-            google_url_pageN = google_url + '&start=' + str(result_page+1)
+        # max_pages = max_results // 10
+        # for result_page in range(max_pages):
+        #     #BUG: deal error when Google has less results than max_results
+        #     #BUG: deal error when Google blocks robots
+        #     google_url_pageN = google_url + '&start=' + str(result_page+1)
 
-            response = requests.get(google_url_pageN)
-            self.soups.append(BeautifulSoup(response.text, "lxml"))
+        #     response = requests.get(google_url_pageN)
+        #     self.soups.append(BeautifulSoup(response.text, "lxml"))
+            
+        response = requests.get(google_url)
+        self.soups.append(BeautifulSoup(response.text, "lxml"))
                 
         return self.soups
 
