@@ -125,6 +125,9 @@ function createText(Texts) {
         var new_div = document.createElement("div")
         var new_title = document.createElement("h1")
         var new_text = document.createElement("p")
+        var new_icon_container = document.createElement("div")
+        var new_icon = document.createElement("div")
+        var new_icon_image = document.createElement("img")
 
         new_title.innerHTML = t.title
         new_text.innerHTML = t.text
@@ -133,8 +136,17 @@ function createText(Texts) {
         new_div.setAttribute("id", "title_".concat(idx))
         new_div.setAttribute("id", "text_".concat(idx))
 
-        new_div.setAttribute("class", "img-bg")
+        new_div.setAttribute("class", "grid-item")
+        new_title.setAttribute("class", "title")
+        new_text.setAttribute("class", "text")
+        new_icon_container.setAttribute("class", "icon-container")
+        new_icon.setAttribute("class", "icon")
+        new_icon_image.setAttribute("class", "image-icon")
+        new_icon_image.src = "images/copy.png"
 
+        new_icon.appendChild(new_icon_image)
+        new_icon_container.appendChild(new_icon)
+        new_div.appendChild(new_icon_container)
         new_div.appendChild(new_title)
         new_div.appendChild(new_text)
         div_base.appendChild(new_div)
@@ -152,12 +164,12 @@ document.addEventListener("DOMContentLoaded", (evt)=>{
 // Texts[0] = []
 // Texts[1] = []
 // Texts[2] = []
-// Texts[0].title = "Title0"
-// Texts[1].title = "Title1"
-// Texts[2].title = "Title2"
-// Texts[0].text = "Text0"
-// Texts[1].text = "Text1"
-// Texts[2].text = "Text2"
+// Texts[0].title = "Title 0"
+// Texts[1].title = "Title 1"
+// Texts[2].title = "Title 2"
+// Texts[0].text = "Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him."
+// Texts[1].text = "Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him."
+// Texts[2].text = "Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him."
 
 // createText(Texts)
 // alert("Texts.length: ".concat(Texts.length))

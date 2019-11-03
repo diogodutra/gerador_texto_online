@@ -116,7 +116,7 @@ async def blogger(request):
 
 @routes.get('/')
 async def hello(request):
-    return web.FileResponse("./client/index2.html")
+    return web.FileResponse("./client/index.html")
 
 
 app = web.Application()

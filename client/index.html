@@ -1,22 +1,62 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Gerador de Texto Online</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato|Roboto:300,400&display=swap" rel="stylesheet">
 
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Planet Tracker</title>
-	<style>
-	input {
-		max-width: 100px;
-	}
+  </head>
+  <body>
+    <header class="header">
 
-	</style>
-</head>
-<body>
-  	<div id="app">
-		<label id="lon">Longitude: <input type="text"/></label><br/>
-		<label id="lat">Latitude: <input type="text"/></label><br/>
-		<label id="elevation">Elevation: <input type="text"/></label><br/>
-	</div>
-	<script src="/app.js"></script>
-</body>
+      <div class="top-menu">
+
+        <div class="language-container">
+        <select class="language">  
+          <option value="pt">Português</option>
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+        </select>
+        </div>
+
+        <div class="country-container">
+        <select class="country">
+          <option value="br">Brasil</option>
+          <option value="ca">Canada</option>
+          <option value="us">United States</option>
+        </select>
+        </div>
+
+      </div>
+
+
+      <div id="app">
+        <label><input id="keywords" type="text" class="lbl-search" autofocus/></label>
+        <br/>
+        <button type="button" id="button" class="btn-search">Gerar Texto</button>
+      </div>
+
+    </header>
+
+    <div class="grid-container" id="results">
+
+      <!-- results will be shown here with the same structure as below -->
+
+      <!-- <div class="grid-item">
+        <div class="icon-container">
+          <div class="icon">
+            <img class="image-icon" src="images/copy.png" alt="Copy Icon">
+          </div>
+        </div>
+        <h1 class="title">Title 1</h1>
+        <p class="text"> Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him.</p>
+      </div> -->
+      
+    </div>
+    
+    <script src="script.js"></script>
+    <script src="app1.js"></script>
+  </body>
+</html>
