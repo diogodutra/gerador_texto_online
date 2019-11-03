@@ -10,6 +10,7 @@ var App = function(){
     this.id_country = "country"
     this.id_language = "language"
     this.id_loader = "loader"
+    this.id_more = "btn_more"
 
     this.getTexts = function(keywords, country, language) {
     // inspiration: this.getPlanetEphemeris = function(planetName){
@@ -20,12 +21,13 @@ var App = function(){
         })
     }
 
-    this.removeTexts = function() {        
+    this.cleanResults = function() {        
         // remove all the previous results
         var div_base = document.getElementById("results")
         while (div_base.firstChild) {
             div_base.removeChild(div_base.firstChild);
         }
+        document.getElementById(app.id_more).style.display = "none"
     }
 
     this.updateTexts = function(Texts) {
@@ -38,9 +40,7 @@ var App = function(){
         }
     }
 
-    this.blog = function() {
-    // inspiration: this.update = function(){
-        app.removeTexts()
+    this.blog_more = function() {
         var keywords = document.getElementById(this.id_keywords).value
         var country = document.getElementById(this.id_country).value
         var language = document.getElementById(this.id_language).value
@@ -50,6 +50,7 @@ var App = function(){
             app.getTexts(keywords, country, language).then((Texts) => {
                 if (Texts) {
                     document.getElementById(app.id_loader).style.display = "none"
+                    document.getElementById(app.id_more).style.display = "block"
                     app.updateTexts(Texts)
                 } else {
                     // alert("get finished with empty result.")
@@ -60,17 +61,30 @@ var App = function(){
             })
         } else {
             document.getElementById(this.id_loader).style.display = "none"
+            document.getElementById(app.id_more).style.display = "none"
         }
+    }
+
+    this.blog = function() {
+    // inspiration: this.update = function(){
+        app.cleanResults()
+        app.blog_more()
     }
 
     this.init = function() {
     // inspiration: this.init = function(){
 
-        // button click
+        // search button click
         document.getElementById(this.id_button).addEventListener("click", function(){
             // alert("click: ")
             app.blog()
           });
+
+          // more button click
+          document.getElementById(this.id_more).addEventListener("click", function(){
+              // alert("click more: ")
+              app.blog_more()
+            });
 
         // key enter        
         document.getElementById(app.id_keywords).addEventListener("keyup", function(event) {
