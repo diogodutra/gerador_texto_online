@@ -16,7 +16,7 @@ class Googler():
 
 
     def get_soup(self, search='hello world',
-         *, country=None, language=None, max_results=10):
+         *, country=None, language=None, page=0, max_results=10):
 
         self.soups = []
 
@@ -27,6 +27,8 @@ class Googler():
             google_url += '&cr=country' + country
         if language is not None:
             google_url += '&lr=lang_' + language
+
+        google_url += '&start=' + page * max_results
         
         max_pages = max_results // 10
         for result_page in range(max_pages):
@@ -76,8 +78,8 @@ class Googler():
         return self.urls, self.titles, self.descriptions
 
 
-    def google(self, search='hello world', *, country=None, language=None, max_results=10):
-        self.get_soup(search, language=language, country=country, max_results=max_results)
+    def google(self, search='hello world', *, country=None, language=None, page=0, max_results=10):
+        self.get_soup(search, language=language, country=country, page=page, max_results=max_results)
         urls, titles, descriptions = self.get_metadata()
         return urls, titles, descriptions
 

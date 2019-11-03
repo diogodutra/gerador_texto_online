@@ -12,9 +12,11 @@ var App = function(){
     this.id_loader = "loader"
     this.id_more = "btn_more"
 
+    this.search_page = 0
+
     this.getTexts = function(keywords, country, language) {
     // inspiration: this.getPlanetEphemeris = function(planetName){
-        var url = `/blogger/country=${country}&lang=${language}&keywords=${keywords}`
+        var url = `/blogger/country=${country}&lang=${language}&keywords=${keywords}&page=${page}`
         // return this.get(`/blogger/${keywords}`).then((req) => {
         return this.get(url).then((req) => {
             return JSON.parse(req.response)
@@ -63,11 +65,13 @@ var App = function(){
             document.getElementById(this.id_loader).style.display = "none"
             document.getElementById(app.id_more).style.display = "none"
         }
+        app.search_page += 1
     }
 
     this.blog = function() {
     // inspiration: this.update = function(){
         app.cleanResults()
+        app.search_page = 0
         app.blog_more()
     }
 
@@ -83,6 +87,7 @@ var App = function(){
           // more button click
           document.getElementById(this.id_more).addEventListener("click", function(){
               // alert("click more: ")
+              document.getElementById(app.id_more).style.display = "none"
               app.blog_more()
             });
 

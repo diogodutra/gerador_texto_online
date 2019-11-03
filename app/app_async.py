@@ -91,16 +91,17 @@ async def scrapper_spinner(url, lang='pt'):
     return text
     
 
-@routes.get("/blogger/country={country}&lang={lang}&keywords={keywords}")
+@routes.get("/blogger/country={country}&lang={lang}&keywords={keywords}&page={page}")
 async def blogger(request):
 
     keywords = request.match_info['keywords']
     country = request.match_info['country']
     language = request.match_info['lang']
+    page = request.match_info['page']
     # country = 'br'
 
     googler = Googler()
-    googler.google(keywords, country=country)
+    googler.google(keywords, country=country, page=page)
     
     tasks = [scrapper_spinner(url, language) for url in googler.urls]
     texts = await asyncio.gather(*tasks)
