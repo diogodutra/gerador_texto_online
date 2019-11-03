@@ -118,6 +118,12 @@ select{
   font-family: 'Roboto', sans-serif;
   color: rgb(64,64,64);
   outline: 0;
+  background-color: white !important;
+}
+
+/* force this color after autofill (chrome, u bad boy) */
+.lbl-search:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 100px white inset;
 }
 
 .btn-search{
