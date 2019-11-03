@@ -16,7 +16,8 @@ var App = function(){
 
     this.getTexts = function(keywords, country, language) {
     // inspiration: this.getPlanetEphemeris = function(planetName){
-        var url = `/blogger/country=${country}&lang=${language}&keywords=${keywords}&page=${this.search_page}`
+        alert("Page: ".concat(ToString(app.search_page)))
+        var url = `/blogger/country=${country}&lang=${language}&keywords=${keywords}&page=${app.search_page}`
         // return this.get(`/blogger/${keywords}`).then((req) => {
         return this.get(url).then((req) => {
             return JSON.parse(req.response)
