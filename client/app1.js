@@ -30,7 +30,7 @@ var App = function(){
 
     this.updateTexts = function(Texts) {
         // inspiration: this.updatePlanetDisplay = function(planetData){
-        // alert("updateTexts.length: ".concat(showProps(Texts.keys.length, "Texts.length")))
+        alert("updateTexts.length: ".concat(showProps(Texts.keys.length, "Texts.length")))
         var div_base = document.getElementById(this.id_results)
         for (var idx in Texts) {
             // alert("for: ".concat(showProps(Texts[idx], "Texts")))
@@ -54,6 +54,7 @@ var App = function(){
             
             var t = Texts[idx]
             
+            // create DOM for each result
             var new_div = document.createElement("div")
             var new_title = document.createElement("h1")
             var new_text = document.createElement("p")
@@ -61,6 +62,7 @@ var App = function(){
             var new_icon = document.createElement("div")
             var new_icon_image = document.createElement("img")
 
+            // // fill new DOM with content
             new_title.innerHTML = t.title
             new_text.innerHTML = t.text
             
@@ -93,8 +95,9 @@ var App = function(){
         var language = document.getElementById(this.id_language).value
         keywords = encodeURI(keywords)
         if (keywords) {
-            // this.getTexts(keywords).then((Texts) => {
+            alert("get started.")
             this.getTexts(keywords, country, language).then((Texts) => {
+                alert("get finished.")
                 this.updateTexts(Texts)
             })
         }
@@ -105,7 +108,7 @@ var App = function(){
 
         // button click
         document.getElementById(this.id_button).addEventListener("click", function(){
-            alert("click: ")
+            // alert("click: ")
             app.blog()
           });
 
