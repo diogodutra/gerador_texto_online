@@ -105,6 +105,7 @@ var App = function(){
 
         // button click
         document.getElementById(this.id_button).addEventListener("click", function(){
+            alert("click: ")
             app.blog()
           });
 
