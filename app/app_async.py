@@ -80,8 +80,13 @@ async def scrapper_spinner(url, lang='pt'):
     scrapper = Scrapper()
     text = scrapper.scrap(url)
 
-    spinner = Spinner()
-    text = spinner.spin(text, lang)
+    if scrapper.critic():
+        #good critics
+        spinner = Spinner()
+        text = spinner.spin(text, lang)
+    else:
+        #bad critics
+        text = '' #returns no text in case of bad critics
 
     return text
     

@@ -46,10 +46,10 @@ var App = function(){
         var language = document.getElementById(this.id_language).value
         keywords = encodeURI(keywords)
         if (keywords) {
-            document.getElementById("loader").style.display = "block"
+            document.getElementById(this.id_loader).style.display = "block"
             app.getTexts(keywords, country, language).then((Texts) => {
                 if (Texts) {
-                    document.getElementById("loader").style.display = "none"
+                    document.getElementById(app.id_loader).style.display = "none"
                     app.updateTexts(Texts)
                 } else {
                     // alert("get finished with empty result.")
@@ -59,7 +59,7 @@ var App = function(){
             //   alert("get finished with error: ".concat(reason))
             })
         } else {
-            document.getElementById("loader").style.display = "none"
+            document.getElementById(this.id_loader).style.display = "none"
         }
     }
 
@@ -190,16 +190,16 @@ document.addEventListener("DOMContentLoaded", (evt)=>{
     app.init()
 })
 
-// var Texts = []
-// Texts[0] = []
-// Texts[1] = []
-// Texts[2] = []
-// Texts[0].title = "Title 0 muito grande para caber numa só linha"
-// Texts[1].title = "Title 1"
-// Texts[2].title = "Title 2"
-// Texts[0].text = "Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him."
-// Texts[1].text = "Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him."
-// Texts[2].text = "Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him."
+var Texts = []
+Texts[0] = []
+Texts[1] = []
+Texts[2] = []
+Texts[0].title = "Title 0 muito grande para caber numa só linha"
+Texts[1].title = "Title 1"
+Texts[2].title = "Title 2"
+Texts[0].text = "Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him."
+Texts[1].text = "Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him."
+Texts[2].text = "Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him."
 
-// createAllTexts(Texts)
+createAllTexts(Texts)
 // alert("Texts.length: ".concat(Texts.length))

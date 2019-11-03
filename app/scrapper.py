@@ -115,6 +115,24 @@ class Scrapper():
                 self.text = self.text.replace(forbidden, '')
 
 
+    def critic(self):
+        # retuns True if good text, otherwise is False
+        
+        is_short = self.text.count(' ') < 150
+        if is_short:
+            return False
+
+        is_code = self.text.count('[a-z][A-Z]') > 0
+        if is_code:
+            return False
+
+        is_cookie = self.text.count('cookie|site') > 0
+        if is_cookie:
+            return False
+
+        return True
+
+
 '''
 if __name__=="__main__":
     "Example of usage."
