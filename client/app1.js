@@ -12,7 +12,6 @@ var App = function(){
 
     this.getTexts = function(keywords, country, language) {
     // inspiration: this.getPlanetEphemeris = function(planetName){
-        // alert("getTexts: ".concat(keywords))
         var url = `/blogger/country=${country}&lang=${language}&keywords=${keywords}`
         // return this.get(`/blogger/${keywords}`).then((req) => {
         return this.get(url).then((req) => {
@@ -35,55 +34,45 @@ var App = function(){
         for (var idx in Texts) {
             // alert("for: ".concat(showProps(Texts[idx], "Texts")))
 
-            // create DOM for one text
+            createText(Texts[idx], idx)
+            
+            // var t = Texts[idx]
+            
+            // // create DOM for each result
             // var new_div = document.createElement("div")
             // var new_title = document.createElement("h1")
             // var new_text = document.createElement("p")
+            // var new_icon_container = document.createElement("div")
+            // var new_icon = document.createElement("div")
+            // var new_icon_image = document.createElement("img")
 
+            // // fill new DOM with content
+            // new_title.innerHTML = t.title
+            // new_text.innerHTML = t.text
+            
+            // //
+            // new_icon_image.addEventListener("click", function(){
+            //     alert("click: ")
+            // });
+            
+            // new_div.setAttribute("id", "div_".concat(idx))
+            // new_div.setAttribute("id", "title_".concat(idx))
+            // new_div.setAttribute("id", "text_".concat(idx))
+
+            // new_div.setAttribute("class", "grid-item")
+            // new_title.setAttribute("class", "title")
+            // new_text.setAttribute("class", "text")
+            // new_icon_container.setAttribute("class", "icon-container")
+            // new_icon.setAttribute("class", "icon")
+            // new_icon_image.setAttribute("class", "image-icon")
+            // new_icon_image.src = "images/copy.png"
+
+            // new_icon.appendChild(new_icon_image)
+            // new_icon_container.appendChild(new_icon)
+            // new_div.appendChild(new_icon_container)
             // new_div.appendChild(new_title)
             // new_div.appendChild(new_text)
             // div_base.appendChild(new_div)
-            
-            // new_div.setAttribute("id", "div_".concat(idx))
-            // new_title.setAttribute("id", "title_".concat(idx))
-            // new_text.setAttribute("id", "text_".concat(idx))
-
-            // // fill new DOM with content
-            // new_title.innerHTML = Texts[idx].title
-            // new_text.innerHTML = Texts[idx].text
-            
-            var t = Texts[idx]
-            
-            // create DOM for each result
-            var new_div = document.createElement("div")
-            var new_title = document.createElement("h1")
-            var new_text = document.createElement("p")
-            var new_icon_container = document.createElement("div")
-            var new_icon = document.createElement("div")
-            var new_icon_image = document.createElement("img")
-
-            // // fill new DOM with content
-            new_title.innerHTML = t.title
-            new_text.innerHTML = t.text
-            
-            new_div.setAttribute("id", "div_".concat(idx))
-            new_div.setAttribute("id", "title_".concat(idx))
-            new_div.setAttribute("id", "text_".concat(idx))
-
-            new_div.setAttribute("class", "grid-item")
-            new_title.setAttribute("class", "title")
-            new_text.setAttribute("class", "text")
-            new_icon_container.setAttribute("class", "icon-container")
-            new_icon.setAttribute("class", "icon")
-            new_icon_image.setAttribute("class", "image-icon")
-            new_icon_image.src = "images/copy.png"
-
-            new_icon.appendChild(new_icon_image)
-            new_icon_container.appendChild(new_icon)
-            new_div.appendChild(new_icon_container)
-            new_div.appendChild(new_title)
-            new_div.appendChild(new_text)
-            div_base.appendChild(new_div)
         }
     }
 
@@ -160,10 +149,29 @@ function showProps(obj, objName) {
     }
     return result;
 }
+
+// const copyToClipboard = str => {
+function copyToClipboard(str) {
+    const el = document.createElement('textarea');
+    el.value = str;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+};
   
-function createText(Texts) {
-    var div_base = document.getElementById("results")
+function createAllTexts(Texts) {
     Texts.forEach((t, idx)=>{
+        createText(t, idx)
+    })
+}
+
+function createText(Text, idx) {
+    var div_base = document.getElementById("results")
+    // Texts.forEach((t, idx)=>{
         var new_div = document.createElement("div")
         var new_title = document.createElement("h1")
         var new_text = document.createElement("p")
@@ -171,8 +179,12 @@ function createText(Texts) {
         var new_icon = document.createElement("div")
         var new_icon_image = document.createElement("img")
 
-        new_title.innerHTML = t.title
-        new_text.innerHTML = t.text
+        new_title.innerHTML = Text.title
+        new_text.innerHTML = Text.text
+        
+        new_icon_image.addEventListener("click", function(){
+            copyToClipboard(Text.title.concat("\n").concat(Text.text))
+        });
         
         new_div.setAttribute("id", "div_".concat(idx))
         new_div.setAttribute("id", "title_".concat(idx))
@@ -192,7 +204,7 @@ function createText(Texts) {
         new_div.appendChild(new_title)
         new_div.appendChild(new_text)
         div_base.appendChild(new_div)
-    })
+    // })
 }
 
 // alert("Gerador de Texto Online!")
@@ -202,16 +214,16 @@ document.addEventListener("DOMContentLoaded", (evt)=>{
     app.init()
 })
 
-// var Texts = []
-// Texts[0] = []
-// Texts[1] = []
-// Texts[2] = []
-// Texts[0].title = "Title 0"
-// Texts[1].title = "Title 1"
-// Texts[2].title = "Title 2"
-// Texts[0].text = "Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him."
-// Texts[1].text = "Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him."
-// Texts[2].text = "Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him."
+var Texts = []
+Texts[0] = []
+Texts[1] = []
+Texts[2] = []
+Texts[0].title = "Title 0"
+Texts[1].title = "Title 1"
+Texts[2].title = "Title 2"
+Texts[0].text = "Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him."
+Texts[1].text = "Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him."
+Texts[2].text = "Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed adapted demands. Received had end produced prepared diverted strictly off man branched. Known ye money so large decay voice there to. Preserved be mr cordially incommode as an. He doors quick child an point at. Had share vexed front least style off why him."
 
-// createText(Texts)
+createAllTexts(Texts)
 // alert("Texts.length: ".concat(Texts.length))

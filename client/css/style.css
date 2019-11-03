@@ -8,7 +8,6 @@
   grid-template-columns: auto;
   background-color: white;
   padding: 10px;
-  cursor: pointer;
 }
 
 .grid-item {
@@ -64,6 +63,11 @@
 
 .icon-container{
   padding: 0px 0px 0px 0px;
+  cursor: pointer;
+}
+
+.icon:active {
+  background-color: darkgray;
 }
 
 .header-background{
