@@ -96,9 +96,16 @@ var App = function(){
         keywords = encodeURI(keywords)
         if (keywords) {
             alert("get started.")
-            this.getTexts(keywords, country, language).then((Texts) => {
-                alert("get finished.")
-                this.updateTexts(Texts)
+            app.getTexts(keywords, country, language).then((Texts) => {
+                if (Texts) {
+                    alert("get finished with success.")
+                    app.updateTexts(Texts)
+                } else {
+                    alert("get finished with empty result.")
+                }
+            }, reason => {
+              console.error(reason); // Error!
+              alert("get finished with error: ".concat(reason))
             })
         }
     }
