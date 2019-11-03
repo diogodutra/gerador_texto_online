@@ -28,7 +28,7 @@ class Googler():
         if language is not None:
             google_url += '&lr=lang_' + language
 
-        google_url += '&start=' + page * max_results
+        google_url += '&start=' + str(page * max_results)
         
         # max_pages = max_results // 10
         # for result_page in range(max_pages):
