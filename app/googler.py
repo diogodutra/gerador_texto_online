@@ -82,7 +82,7 @@ class Googler():
 
 
     def google(self, search='hello world', *, country=None, language=None, page=0, max_results=10):
-        self.get_soup(search, language=language, country=country, page=page, max_results=max_results)
+        self.get_soup(search, language=language, country=country, page=int(page), max_results=max_results)
         urls, titles, descriptions = self.get_metadata()
         return urls, titles, descriptions
 
