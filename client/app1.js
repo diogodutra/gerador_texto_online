@@ -113,6 +113,8 @@ var App = function(){
             request.onreadystatechange = function(){
                 if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                     resolve(this)
+                } else {
+                    alert("Could not get results. Try again with other keywords.")
                 }
             }
             request.onerror = reject
