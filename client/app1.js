@@ -36,21 +36,52 @@ var App = function(){
             // alert("for: ".concat(showProps(Texts[idx], "Texts")))
 
             // create DOM for one text
+            // var new_div = document.createElement("div")
+            // var new_title = document.createElement("h1")
+            // var new_text = document.createElement("p")
+
+            // new_div.appendChild(new_title)
+            // new_div.appendChild(new_text)
+            // div_base.appendChild(new_div)
+            
+            // new_div.setAttribute("id", "div_".concat(idx))
+            // new_title.setAttribute("id", "title_".concat(idx))
+            // new_text.setAttribute("id", "text_".concat(idx))
+
+            // // fill new DOM with content
+            // new_title.innerHTML = Texts[idx].title
+            // new_text.innerHTML = Texts[idx].text
+            
+            var t = Texts[idx]
+            
             var new_div = document.createElement("div")
             var new_title = document.createElement("h1")
             var new_text = document.createElement("p")
+            var new_icon_container = document.createElement("div")
+            var new_icon = document.createElement("div")
+            var new_icon_image = document.createElement("img")
 
+            new_title.innerHTML = t.title
+            new_text.innerHTML = t.text
+            
+            new_div.setAttribute("id", "div_".concat(idx))
+            new_div.setAttribute("id", "title_".concat(idx))
+            new_div.setAttribute("id", "text_".concat(idx))
+
+            new_div.setAttribute("class", "grid-item")
+            new_title.setAttribute("class", "title")
+            new_text.setAttribute("class", "text")
+            new_icon_container.setAttribute("class", "icon-container")
+            new_icon.setAttribute("class", "icon")
+            new_icon_image.setAttribute("class", "image-icon")
+            new_icon_image.src = "images/copy.png"
+
+            new_icon.appendChild(new_icon_image)
+            new_icon_container.appendChild(new_icon)
+            new_div.appendChild(new_icon_container)
             new_div.appendChild(new_title)
             new_div.appendChild(new_text)
             div_base.appendChild(new_div)
-            
-            new_div.setAttribute("id", "div_".concat(idx))
-            new_title.setAttribute("id", "title_".concat(idx))
-            new_text.setAttribute("id", "text_".concat(idx))
-
-            // fill new DOM with content
-            new_title.innerHTML = Texts[idx].title
-            new_text.innerHTML = Texts[idx].text
         }
     }
 
