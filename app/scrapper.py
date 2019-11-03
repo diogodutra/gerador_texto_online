@@ -66,9 +66,9 @@ class Scrapper():
             if len(self.text)==0:
                 print(f'Text not found in {self.url}.')
             else:
-                self.remove_sentences_with()
-                self.remove_hashtags()
-                self.remove_characters()
+                # self.remove_sentences_with()
+                # self.remove_hashtags()
+                # self.remove_characters()
 
         return self.text
 
@@ -88,7 +88,7 @@ class Scrapper():
                 if first_char != '#':
                     paragraph_clean.append(word)
                     
-            paragraph_clean = '\n'.join(paragraph_clean)        
+            paragraph_clean = ' '.join(paragraph_clean)        
             text_clean.append(paragraph_clean)
             
         text_clean = '\n'.join(text_clean)
