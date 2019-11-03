@@ -14,10 +14,10 @@ var App = function(){
 
     this.search_page = 0
 
-    this.getTexts = function(keywords, country, language) {
+    this.getTexts = function(keywords, country, language, search_page) {
     // inspiration: this.getPlanetEphemeris = function(planetName){
-        alert("Page: ".concat(app.search_page.toString()))
-        var url = `/blogger/country=${country}&lang=${language}&keywords=${keywords}&page=${app.search_page}`
+        // alert("Page: ".concat(app.search_page.toString()))
+        var url = `/blogger/country=${country}&lang=${language}&keywords=${keywords}&page=${search_page}`
         // return this.get(`/blogger/${keywords}`).then((req) => {
         return this.get(url).then((req) => {
             return JSON.parse(req.response)
@@ -50,7 +50,7 @@ var App = function(){
         keywords = encodeURI(keywords)
         if (keywords) {
             document.getElementById(this.id_loader).style.display = "block"
-            app.getTexts(keywords, country, language).then((Texts) => {
+            app.getTexts(keywords, country, language, app.search_page).then((Texts) => {
                 if (Texts) {
                     document.getElementById(app.id_loader).style.display = "none"
                     document.getElementById(app.id_more).style.display = "block"
