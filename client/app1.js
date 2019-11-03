@@ -30,7 +30,7 @@ var App = function(){
 
     this.updateTexts = function(Texts) {
         // inspiration: this.updatePlanetDisplay = function(planetData){
-        alert("updateTexts.length: ".concat(showProps(Texts.keys.length, "Texts.length")))
+        // BUG alert("updateTexts.length: ".concat(showProps(Texts.keys.length, "Texts.length")))
         var div_base = document.getElementById(this.id_results)
         for (var idx in Texts) {
             // alert("for: ".concat(showProps(Texts[idx], "Texts")))
