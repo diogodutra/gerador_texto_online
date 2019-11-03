@@ -114,16 +114,21 @@ var App = function(){
         var request = new XMLHttpRequest()
         request.open("GET", url, true)
         return new Promise((resolve, reject)=>{
-            request.send()
-            request.onreadystatechange = function(){
-                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                    resolve(this)
-                } else {
-                    // alert("This request got non-valid response.")
-                    // ignore
+            try {
+                request.send()
+                request.onreadystatechange = function(){
+                    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                        resolve(this)
+                    } else {
+                        // alert("This request got non-valid response.")
+                        // ignore
+                    }
                 }
+                request.onerror = reject
+            } catch(err) {
+                // unexpected error. ignore
             }
-            request.onerror = reject
+            document.getElementById(app.id_loader).style.display = "none"
         })
     }
 }
