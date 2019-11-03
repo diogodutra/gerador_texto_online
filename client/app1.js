@@ -122,13 +122,14 @@ var App = function(){
                     } else {
                         // alert("This request got non-valid response.")
                         // ignore
+                        document.getElementById(app.id_loader).style.display = "none"
                     }
                 }
                 request.onerror = reject
             } catch(err) {
                 // unexpected error. ignore
+                document.getElementById(app.id_loader).style.display = "none"
             }
-            document.getElementById(app.id_loader).style.display = "none"
         })
     }
 }
