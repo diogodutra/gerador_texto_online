@@ -49,6 +49,7 @@ var App = function(){
         if (keywords) {
             document.getElementById(this.id_loader).style.display = "block"
             app.getTexts(keywords, country, language, search_page).then((Texts) => {
+                search_page += 1
                 if (Texts) {
                     document.getElementById(app.id_loader).style.display = "none"
                     document.getElementById(app.id_more).style.display = "block"
@@ -57,7 +58,7 @@ var App = function(){
                     // alert("get finished with empty result.")
                     // empty result
                     if (search_page < 10) {
-                        search_page += 1
+                        // search more results
                         app.blog_more()
                     }
                 }
@@ -69,7 +70,6 @@ var App = function(){
             document.getElementById(this.id_loader).style.display = "none"
             document.getElementById(app.id_more).style.display = "none"
         }
-        search_page += 1
     }
 
     this.blog = function() {
