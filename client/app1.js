@@ -12,8 +12,6 @@ var App = function(){
     this.id_loader = "loader"
     this.id_more = "btn_more"
 
-    this.search_page = 0
-
     this.getTexts = function(keywords, country, language, search_page) {
     // inspiration: this.getPlanetEphemeris = function(planetName){
         // alert("Page: ".concat(app.search_page.toString()))
@@ -50,7 +48,7 @@ var App = function(){
         keywords = encodeURI(keywords)
         if (keywords) {
             document.getElementById(this.id_loader).style.display = "block"
-            app.getTexts(keywords, country, language, app.search_page).then((Texts) => {
+            app.getTexts(keywords, country, language, search_page).then((Texts) => {
                 if (Texts) {
                     document.getElementById(app.id_loader).style.display = "none"
                     document.getElementById(app.id_more).style.display = "block"
@@ -66,13 +64,13 @@ var App = function(){
             document.getElementById(this.id_loader).style.display = "none"
             document.getElementById(app.id_more).style.display = "none"
         }
-        app.search_page += 1
+        search_page += 1
     }
 
     this.blog = function() {
     // inspiration: this.update = function(){
         app.cleanResults()
-        app.search_page = 0
+        search_page = 0
         app.blog_more()
     }
 
@@ -204,6 +202,9 @@ function createText(Text, idx) {
 }
 
 // alert("Gerador de Texto Online!")
+
+var search_page = 0
+
 var app
 document.addEventListener("DOMContentLoaded", (evt)=>{
     app = new App()
