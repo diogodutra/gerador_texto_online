@@ -69,6 +69,7 @@ class Scrapper():
                 # self.remove_sentences_with()
                 # self.remove_hashtags()
                 # self.remove_characters()
+                pass
 
         return self.text
 
