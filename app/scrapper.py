@@ -88,7 +88,7 @@ class Scrapper():
                 if first_char != '#':
                     paragraph_clean.append(word)
                     
-            paragraph_clean = ' '.join(paragraph_clean)        
+            paragraph_clean = '\n'.join(paragraph_clean)        
             text_clean.append(paragraph_clean)
             
         text_clean = '\n'.join(text_clean)
